@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brief — Drop a link. Get the brief.</title>
+  <meta name="description" content="Paste a YouTube or website link. Get a summary, product link, pricing, and reviews — then decide if you want to sign up." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #0c1210;
+      --ink-2: #15201b;
+      --panel: rgba(18, 32, 28, 0.72);
+      --line: rgba(200, 230, 71, 0.18);
+      --mist: #9eb0a6;
+      --paper: #f3f6f1;
+      --maple: #c8e647;
+      --maple-deep: #a8c42e;
+      --warn: #f0b429;
+      --danger: #e86a5c;
+      --radius: 18px;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+      --font-display: "Fraunces", Georgia, serif;
+      --font-body: "Figtree", system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-body);
+      color: var(--paper);
+      background:
+        radial-gradient(1200px 700px at 12% -10%, rgba(200, 230, 71, 0.16), transparent 55%),
+        radial-gradient(900px 600px at 95% 8%, rgba(62, 140, 120, 0.22), transparent 50%),
+        linear-gradient(165deg, #07100d 0%, #0c1210 42%, #13221c 100%);
+      background-attachment: fixed;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.35;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      mix-blend-mode: soft-light;
+      z-index: 0;
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      width: min(920px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 1.25rem 0 4rem;
+    }
+
+    .brand-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: rise 0.7s ease forwards;
+    }
+
+    .brand {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--maple);
+    }
+
+    .brand span { color: var(--paper); font-weight: 500; }
+
+    .share-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--mist);
+      padding: 0.45rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+
+    .share-chip:hover {
+      border-color: rgba(200, 230, 71, 0.45);
+      color: var(--paper);
+      background: rgba(200, 230, 71, 0.08);
+    }
+
+    .hero {
+      min-height: min(72vh, 640px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1.4rem;
+      padding: 1rem 0 2.5rem;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(3.1rem, 9vw, 5.6rem);
+      line-height: 0.92;
+      letter-spacing: -0.045em;
+      font-weight: 700;
+      opacity: 0;
+      animation: rise 0.8s ease 0.08s forwards;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--maple);
+    }
+
+    .lede {
+      margin: 0;
+      max-width: 34rem;
+      color: var(--mist);
+      font-size: 1.1rem;
+      line-height: 1.55;
+      opacity: 0;
+      animation: rise 0.8s ease 0.16s forwards;
+    }
+
+    .intake {
+      display: grid;
+      gap: 0.85rem;
+      opacity: 0;
+      animation: rise 0.8s ease 0.24s forwards;
+    }
+
+    .drop {
+      position: relative;
+      border: 1.5px dashed rgba(200, 230, 71, 0.35);
+      border-radius: calc(var(--radius) + 4px);
+      background: linear-gradient(180deg, rgba(21, 36, 30, 0.9), rgba(12, 20, 17, 0.85));
+      box-shadow: var(--shadow);
+      padding: 1.1rem;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    }
+
+    .drop.is-drag {
+      border-color: var(--maple);
+      transform: translateY(-2px);
+      box-shadow: 0 28px 90px rgba(200, 230, 71, 0.12);
+    }
+
+    .drop label {
+      display: block;
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--maple);
+      margin-bottom: 0.65rem;
+      font-weight: 600;
+    }
+
+    .drop input {
+      width: 100%;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: var(--paper);
+      font: 500 1.05rem/1.4 var(--font-body);
+      padding: 0.35rem 0;
+    }
+
+    .drop input::placeholder { color: rgba(158, 176, 166, 0.65); }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .btn {
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      font: 600 0.98rem/1 var(--font-body);
+      border-radius: 999px;
+      padding: 0.95rem 1.35rem;
+      transition: transform 0.15s, background 0.2s, border-color 0.2s, opacity 0.2s;
+    }
+
+    .btn:active { transform: translateY(1px); }
+    .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+    .btn-primary {
+      background: var(--maple);
+      color: #10160e;
+    }
+
+    .btn-primary:hover:not(:disabled) { background: #d6f15a; }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--paper);
+      border: 1px solid var(--line);
+    }
+
+    .btn-ghost:hover:not(:disabled) {
+      border-color: rgba(200, 230, 71, 0.5);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .hint {
+      color: var(--mist);
+      font-size: 0.9rem;
+    }
+
+    .status {
+      display: none;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 0.35rem;
+      color: var(--mist);
+      font-size: 0.95rem;
+    }
+
+    .status.show { display: flex; }
+
+    .pulse {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--maple);
+      animation: pulse 1.1s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(0.85); opacity: 0.5; }
+      50% { transform: scale(1.15); opacity: 1; }
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .results {
+      display: none;
+      gap: 1.1rem;
+      margin-top: 0.5rem;
+    }
+
+    .results.show {
+      display: grid;
+      animation: rise 0.55s ease;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.35rem;
+    }
+
+    .panel h2 {
+      margin: 0 0 0.55rem;
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      letter-spacing: -0.02em;
+    }
+
+    .panel p, .panel li {
+      color: var(--mist);
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .tag {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.65rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--maple);
+      background: rgba(200, 230, 71, 0.08);
+    }
+
+    .grid-2 {
+      display: grid;
+      gap: 1.1rem;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 760px) {
+      .grid-2 { grid-template-columns: 1fr 1fr; }
+    }
+
+    .kv {
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .kv dt {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--maple);
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .kv dd {
+      margin: 0;
+      color: var(--paper);
+      line-height: 1.5;
+    }
+
+    .kv a {
+      color: var(--maple);
+      word-break: break-all;
+    }
+
+    .signup {
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    .signup-q {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+
+    .signup-note {
+      min-height: 1.2em;
+      color: var(--maple);
+      font-weight: 500;
+    }
+
+    .automation {
+      margin-top: 2.5rem;
+      border-top: 1px solid var(--line);
+      padding-top: 2rem;
+    }
+
+    .automation h2 {
+      margin: 0 0 0.5rem;
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      letter-spacing: -0.03em;
+    }
+
+    .automation > p {
+      color: var(--mist);
+      max-width: 40rem;
+      line-height: 1.55;
+    }
+
+    .prompt-box {
+      margin-top: 1rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(0, 0, 0, 0.28);
+      padding: 1rem;
+    }
+
+    .prompt-box pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: #d7e2db;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.82rem;
+      line-height: 1.5;
+      max-height: 220px;
+      overflow: auto;
+    }
+
+    .prompt-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-top: 0.85rem;
+    }
+
+    .settings {
+      margin-top: 1.5rem;
+    }
+
+    .settings details {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 0.9rem 1rem;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .settings summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--paper);
+    }
+
+    .settings .fields {
+      display: grid;
+      gap: 0.75rem;
+      margin-top: 0.9rem;
+    }
+
+    .settings label {
+      display: grid;
+      gap: 0.35rem;
+      font-size: 0.85rem;
+      color: var(--mist);
+    }
+
+    .settings input, .settings select {
+      border: 1px solid var(--line);
+      background: rgba(0, 0, 0, 0.25);
+      color: var(--paper);
+      border-radius: 10px;
+      padding: 0.7rem 0.8rem;
+      font: 500 0.95rem/1.3 var(--font-body);
+    }
+
+    .history {
+      margin-top: 2rem;
+    }
+
+    .history h2 {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      margin: 0 0 0.75rem;
+    }
+
+    .history-list {
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .history-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 0.75rem 0.9rem;
+      background: rgba(255, 255, 255, 0.02);
+      cursor: pointer;
+      text-align: left;
+      color: inherit;
+      width: 100%;
+      font: inherit;
+    }
+
+    .history-item:hover { border-color: rgba(200, 230, 71, 0.4); }
+
+    .history-item strong {
+      display: block;
+      color: var(--paper);
+      font-size: 0.95rem;
+    }
+
+    .history-item span {
+      color: var(--mist);
+      font-size: 0.8rem;
+    }
+
+    .empty {
+      color: var(--mist);
+      font-size: 0.95rem;
+    }
+
+    .error {
+      display: none;
+      margin-top: 0.75rem;
+      color: #ffc9c2;
+      background: rgba(232, 106, 92, 0.12);
+      border: 1px solid rgba(232, 106, 92, 0.35);
+      border-radius: 12px;
+      padding: 0.8rem 1rem;
+    }
+
+    .error.show { display: block; }
+
+    ul.clean {
+      margin: 0.4rem 0 0;
+      padding-left: 1.1rem;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 1.25rem;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--ink-2);
+      border: 1px solid var(--line);
+      color: var(--paper);
+      padding: 0.7rem 1rem;
+      border-radius: 999px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s, transform 0.25s;
+      z-index: 20;
+      font-size: 0.9rem;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="brand-bar">
+      <div class="brand">Brief <span>· masonre</span></div>
+      <button type="button" class="share-chip" id="copyShare" title="Copy shareable link">
+        Copy share link
+      </button>
+    </header>
+
+    <section class="hero" id="hero">
+      <h1>Brief<em>.</em></h1>
+      <p class="lede">Drop a YouTube or website link. Get the summary, the product, pricing, and reviews — then say if you want to sign up. Save the same flow as a Cursor Automation and run it again.</p>
+
+      <div class="intake">
+        <div class="drop" id="drop">
+          <label for="urlInput">Paste YouTube or website URL</label>
+          <input id="urlInput" type="url" inputmode="url" autocomplete="off" placeholder="https://youtube.com/watch?v=… or https://example.com/product" />
+        </div>
+        <div class="actions">
+          <button class="btn btn-primary" id="analyzeBtn" type="button">Get the brief</button>
+          <button class="btn btn-ghost" id="pasteBtn" type="button">Paste from clipboard</button>
+          <span class="hint">Works for videos and product pages</span>
+        </div>
+        <div class="status" id="status"><span class="pulse"></span><span id="statusText">Working…</span></div>
+        <div class="error" id="error"></div>
+      </div>
+    </section>
+
+    <section class="results" id="results" aria-live="polite">
+      <article class="panel">
+        <div class="meta">
+          <span class="tag" id="sourceType">Source</span>
+          <span class="tag" id="sourceTitle">Title</span>
+        </div>
+        <h2>Summary</h2>
+        <p id="summaryText"></p>
+      </article>
+
+      <div class="grid-2">
+        <article class="panel">
+          <h2>Product / service</h2>
+          <dl class="kv">
+            <div>
+              <dt>Name</dt>
+              <dd id="productName">—</dd>
+            </div>
+            <div>
+              <dt>Link</dt>
+              <dd id="productLink">—</dd>
+            </div>
+            <div>
+              <dt>Pricing</dt>
+              <dd id="pricingText">—</dd>
+            </div>
+          </dl>
+        </article>
+
+        <article class="panel">
+          <h2>Reviews</h2>
+          <div id="reviewsBody"><p class="empty">No review signals found yet.</p></div>
+        </article>
+      </div>
+
+      <article class="panel signup">
+        <p class="signup-q">Want me to sign you up?</p>
+        <p class="hint">If yes, Brief records the interest locally and copies a follow-up prompt you can send to your Cursor Automation.</p>
+        <div class="actions">
+          <button class="btn btn-primary" id="signupYes" type="button">Yes, sign me up</button>
+          <button class="btn btn-ghost" id="signupNo" type="button">Not now</button>
+        </div>
+        <p class="signup-note" id="signupNote"></p>
+      </article>
+    </section>
+
+    <section class="settings">
+      <details>
+        <summary>Optional: OpenAI key for richer AI briefs</summary>
+        <div class="fields">
+          <label>
+            OpenAI API key (stored only in this browser)
+            <input id="apiKey" type="password" placeholder="sk-…" autocomplete="off" />
+          </label>
+          <label>
+            Model
+            <select id="modelSelect">
+              <option value="gpt-4o-mini">gpt-4o-mini</option>
+              <option value="gpt-4o">gpt-4o</option>
+            </select>
+          </label>
+          <p class="hint">Without a key, Brief still fetches the transcript or page and builds a structured brief from the content. With a key, the brief is LLM-refined.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="automation" id="automation">
+      <h2>Repeat as a Cursor Automation</h2>
+      <p>Copy this prompt into a new Cursor Automation so every time you drop a link, the agent runs the same Brief workflow and asks about signup.</p>
+      <div class="prompt-box">
+        <pre id="automationPrompt"></pre>
+        <div class="prompt-actions">
+          <button class="btn btn-primary" id="copyAutomation" type="button">Copy automation prompt</button>
+          <a class="btn btn-ghost" href="https://cursor.com/automations" target="_blank" rel="noopener">Open Cursor Automations</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="history" id="historySection">
+      <h2>Recent briefs</h2>
+      <div class="history-list" id="historyList">
+        <p class="empty">No briefs yet — paste a link above.</p>
+      </div>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script>
+    const AUTOMATION_PROMPT = `You are Brief — a repeatable link analysis agent.
+
+Whenever I send a YouTube video URL or a website URL, run this exact workflow:
+
+1. Detect type
+   - YouTube / video link → fetch or download the transcript (or captions) and summarize the video.
+   - Website / article / product page → fetch the page content and summarize it.
+
+2. Produce a brief with these sections:
+   - Summary (short, clear, non-hype)
+   - Product or service being discussed (name + official link when you can find it)
+   - Pricing (list plans/prices when available; say “not found” if missing)
+   - Reviews (synthesize notable positives/negatives from the source or reputable public reviews; cite sources)
+
+3. Ask: “Want me to sign you up?”
+   - If I say yes: gather whatever is needed and help me complete signup (or prepare the signup steps/links).
+   - If I say no: stop at the brief.
+
+4. After finishing, wait for the next link and repeat the same workflow.
+
+Keep answers concise. Prefer official product pages for links and pricing. Never invent prices or reviews.`;
+
+    const els = {
+      urlInput: document.getElementById("urlInput"),
+      drop: document.getElementById("drop"),
+      analyzeBtn: document.getElementById("analyzeBtn"),
+      pasteBtn: document.getElementById("pasteBtn"),
+      status: document.getElementById("status"),
+      statusText: document.getElementById("statusText"),
+      error: document.getElementById("error"),
+      results: document.getElementById("results"),
+      sourceType: document.getElementById("sourceType"),
+      sourceTitle: document.getElementById("sourceTitle"),
+      summaryText: document.getElementById("summaryText"),
+      productName: document.getElementById("productName"),
+      productLink: document.getElementById("productLink"),
+      pricingText: document.getElementById("pricingText"),
+      reviewsBody: document.getElementById("reviewsBody"),
+      signupYes: document.getElementById("signupYes"),
+      signupNo: document.getElementById("signupNo"),
+      signupNote: document.getElementById("signupNote"),
+      apiKey: document.getElementById("apiKey"),
+      modelSelect: document.getElementById("modelSelect"),
+      automationPrompt: document.getElementById("automationPrompt"),
+      copyAutomation: document.getElementById("copyAutomation"),
+      copyShare: document.getElementById("copyShare"),
+      historyList: document.getElementById("historyList"),
+      toast: document.getElementById("toast"),
+    };
+
+    const STORAGE_KEY = "brief.history.v1";
+    const API_KEY_STORAGE = "brief.openaiKey";
+    const MODEL_STORAGE = "brief.openaiModel";
+
+    let currentBrief = null;
+
+    els.automationPrompt.textContent = AUTOMATION_PROMPT;
+    els.apiKey.value = localStorage.getItem(API_KEY_STORAGE) || "";
+    els.modelSelect.value = localStorage.getItem(MODEL_STORAGE) || "gpt-4o-mini";
+
+    els.apiKey.addEventListener("change", () => {
+      localStorage.setItem(API_KEY_STORAGE, els.apiKey.value.trim());
+    });
+    els.modelSelect.addEventListener("change", () => {
+      localStorage.setItem(MODEL_STORAGE, els.modelSelect.value);
+    });
+
+    function toast(message) {
+      els.toast.textContent = message;
+      els.toast.classList.add("show");
+      clearTimeout(toast._t);
+      toast._t = setTimeout(() => els.toast.classList.remove("show"), 2200);
+    }
+
+    async function copyText(text) {
+      await navigator.clipboard.writeText(text);
+      toast("Copied");
+    }
+
+    function showError(message) {
+      els.error.textContent = message;
+      els.error.classList.add("show");
+    }
+
+    function clearError() {
+      els.error.classList.remove("show");
+      els.error.textContent = "";
+    }
+
+    function setBusy(busy, label = "Working…") {
+      els.analyzeBtn.disabled = busy;
+      els.status.classList.toggle("show", busy);
+      els.statusText.textContent = label;
+    }
+
+    function extractYouTubeId(url) {
+      try {
+        const u = new URL(url);
+        const host = u.hostname.replace(/^www\./, "");
+        if (host === "youtu.be") return u.pathname.slice(1).split("/")[0] || null;
+        if (host === "youtube.com" || host === "m.youtube.com" || host === "music.youtube.com") {
+          if (u.searchParams.get("v")) return u.searchParams.get("v");
+          const parts = u.pathname.split("/").filter(Boolean);
+          if (["embed", "shorts", "live", "v"].includes(parts[0]) && parts[1]) return parts[1];
+        }
+      } catch (_) { /* ignore */ }
+      return null;
+    }
+
+    function classifyUrl(raw) {
+      const url = raw.trim();
+      const yt = extractYouTubeId(url);
+      if (yt) return { type: "youtube", videoId: yt, url: `https://www.youtube.com/watch?v=${yt}` };
+      return { type: "website", url };
+    }
+
+    function stripMarkdownNoise(text) {
+      return String(text || "")
+        .replace(/\r/g, "")
+        .replace(/^#{1,6}\s+/gm, "")
+        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1 ($2)")
+        .replace(/[`*_>]+/g, "")
+        .replace(/\n{3,}/g, "\n\n")
+        .trim();
+    }
+
+    function sentences(text) {
+      return stripMarkdownNoise(text)
+        .split(/(?<=[.!?])\s+/)
+        .map((s) => s.trim())
+        .filter((s) => s.length > 40);
+    }
+
+    function extractiveSummary(text, max = 4) {
+      const parts = sentences(text);
+      if (!parts.length) {
+        const clipped = stripMarkdownNoise(text).slice(0, 480);
+        return clipped || "No summary available from this source.";
+      }
+      const scored = parts.map((s, i) => {
+        let score = Math.max(0, 8 - i * 0.15);
+        if (/\$|price|pricing|plan|free|trial|review|rating|customer/i.test(s)) score += 2.5;
+        if (/product|service|platform|tool|app|software/i.test(s)) score += 1.5;
+        return { s, score };
+      });
+      scored.sort((a, b) => b.score - a.score);
+      return scored.slice(0, max).map((x) => x.s).join(" ");
+    }
+
+    function findUrls(text) {
+      const matches = text.match(/https?:\/\/[^\s)\]>"']+/gi) || [];
+      return [...new Set(matches.map((u) => u.replace(/[.,;:]+$/, "")))];
+    }
+
+    function findPricing(text) {
+      const lines = stripMarkdownNoise(text).split(/\n+/);
+      const hits = [];
+      const money = /(?:\$|USD\s?|€|£)\s?\d[\d,]*(?:\.\d{2})?(?:\s*\/\s*(?:mo|month|yr|year|user)?)?/gi;
+      for (const line of lines) {
+        if (!money.test(line) && !/pricing|price|plan|subscription|per month|\/mo/i.test(line)) continue;
+        money.lastIndex = 0;
+        const clean = line.trim();
+        if (clean.length > 8 && clean.length < 180) hits.push(clean);
+        if (hits.length >= 5) break;
+      }
+      const amounts = [...new Set((text.match(money) || []).slice(0, 8))];
+      if (hits.length) return hits.join(" · ");
+      if (amounts.length) return amounts.join(", ");
+      return "Not found in source";
+    }
+
+    function findReviews(text) {
+      const parts = sentences(text).filter((s) =>
+        /review|rated|rating|stars|customers? say|testimonial|loved|hate|complaint|pros|cons|trustpilot|g2|capterra/i.test(s)
+      );
+      return parts.slice(0, 4);
+    }
+
+    function guessProduct(text, sourceUrl, sourceType) {
+      const urls = findUrls(text).filter((u) => {
+        try {
+          const host = new URL(u).hostname.replace(/^www\./, "");
+          if (host.includes("youtube.com") || host === "youtu.be") return false;
+          if (host.includes("google.com") || host.includes("facebook.com")) return false;
+          return true;
+        } catch (_) {
+          return false;
+        }
+      });
+
+      const titleMatch = text.match(/(?:Title|Product|Official site):\s*(.+)/i);
+      let name = titleMatch ? titleMatch[1].trim().slice(0, 80) : "";
+      if (!name) {
+        const firstLine = stripMarkdownNoise(text).split("\n").find((l) => l.length > 3) || "";
+        name = firstLine.replace(/^Transcript:\s*/i, "").slice(0, 80);
+      }
+
+      let link = urls[0] || (sourceType === "website" ? sourceUrl : "");
+      return { name: name || "Unknown product / topic", link };
+    }
+
+    async function fetchYouTube(videoId) {
+      const oembedUrl = `https://www.youtube.com/oembed?url=${encodeURIComponent(`https://www.youtube.com/watch?v=${videoId}`)}&format=json`;
+      const transcriptUrl = `https://youtube-transcript.ai/transcript/${videoId}.txt`;
+
+      const [metaRes, transcriptRes] = await Promise.all([
+        fetch(oembedUrl),
+        fetch(transcriptUrl),
+      ]);
+
+      let title = `YouTube ${videoId}`;
+      let author = "";
+      if (metaRes.ok) {
+        const meta = await metaRes.json();
+        title = meta.title || title;
+        author = meta.author_name || "";
+      }
+
+      if (!transcriptRes.ok) {
+        throw new Error("Could not fetch the video transcript. Try another video or paste a website instead.");
+      }
+
+      const transcript = await transcriptRes.text();
+      return {
+        title,
+        author,
+        content: transcript,
+        sourceUrl: `https://www.youtube.com/watch?v=${videoId}`,
+      };
+    }
+
+    async function fetchWebsite(url) {
+      const readerUrl = `https://r.jina.ai/${url}`;
+      const res = await fetch(readerUrl);
+      if (!res.ok) throw new Error(`Could not fetch website content (${res.status}).`);
+      const content = await res.text();
+      const titleLine = content.match(/^Title:\s*(.+)$/m);
+      return {
+        title: titleLine ? titleLine[1].trim() : url,
+        author: "",
+        content,
+        sourceUrl: url,
+      };
+    }
+
+    async function refineWithOpenAI(baseBrief, source) {
+      const key = els.apiKey.value.trim();
+      if (!key) return baseBrief;
+
+      const model = els.modelSelect.value;
+      const prompt = `Analyze this ${source.type} content and return ONLY valid JSON with keys:
+summary (string),
+productName (string),
+productLink (string URL or empty),
+pricing (string),
+reviews (array of short strings).
+Do not invent prices or reviews. If unknown, say so.
+
+Source title: ${source.title}
+Source URL: ${source.sourceUrl}
+Content:
+${source.content.slice(0, 14000)}`;
+
+      const res = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${key}`,
+        },
+        body: JSON.stringify({
+          model,
+          temperature: 0.2,
+          response_format: { type: "json_object" },
+          messages: [
+            { role: "system", content: "You extract accurate product briefs from source content." },
+            { role: "user", content: prompt },
+          ],
+        }),
+      });
+
+      if (!res.ok) {
+        const errText = await res.text();
+        throw new Error(`OpenAI error: ${res.status} ${errText.slice(0, 180)}`);
+      }
+
+      const data = await res.json();
+      const raw = data.choices?.[0]?.message?.content || "{}";
+      const parsed = JSON.parse(raw);
+      return {
+        ...baseBrief,
+        summary: parsed.summary || baseBrief.summary,
+        productName: parsed.productName || baseBrief.productName,
+        productLink: parsed.productLink || baseBrief.productLink,
+        pricing: parsed.pricing || baseBrief.pricing,
+        reviews: Array.isArray(parsed.reviews) && parsed.reviews.length ? parsed.reviews : baseBrief.reviews,
+        refined: true,
+      };
+    }
+
+    function buildBrief(source) {
+      const product = guessProduct(source.content, source.sourceUrl, source.type);
+      return {
+        id: crypto.randomUUID(),
+        createdAt: new Date().toISOString(),
+        type: source.type,
+        title: source.title,
+        sourceUrl: source.sourceUrl,
+        summary: extractiveSummary(source.content),
+        productName: product.name,
+        productLink: product.link,
+        pricing: findPricing(source.content),
+        reviews: findReviews(source.content),
+        signup: null,
+        refined: false,
+      };
+    }
+
+    function renderBrief(brief) {
+      currentBrief = brief;
+      els.results.classList.add("show");
+      els.sourceType.textContent = brief.type === "youtube" ? "YouTube" : "Website";
+      els.sourceTitle.textContent = brief.title;
+      els.summaryText.textContent = brief.summary;
+      els.productName.textContent = brief.productName || "—";
+      if (brief.productLink) {
+        els.productLink.innerHTML = `<a href="${brief.productLink}" target="_blank" rel="noopener">${brief.productLink}</a>`;
+      } else {
+        els.productLink.textContent = "Not found in source";
+      }
+      els.pricingText.textContent = brief.pricing || "Not found in source";
+
+      if (brief.reviews && brief.reviews.length) {
+        els.reviewsBody.innerHTML = `<ul class="clean">${brief.reviews.map((r) => `<li>${escapeHtml(r)}</li>`).join("")}</ul>`;
+      } else {
+        els.reviewsBody.innerHTML = `<p class="empty">No clear review signals in the source. Check G2, Trustpilot, or App Store after you open the product link.</p>`;
+      }
+
+      if (brief.signup === "yes") {
+        els.signupNote.textContent = "Signup interest saved. Follow-up prompt is on your clipboard.";
+      } else if (brief.signup === "no") {
+        els.signupNote.textContent = "Okay — brief only. Drop another link anytime.";
+      } else {
+        els.signupNote.textContent = "";
+      }
+
+      els.results.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function loadHistory() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+      } catch (_) {
+        return [];
+      }
+    }
+
+    function saveHistory(items) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(items.slice(0, 20)));
+      renderHistory();
+    }
+
+    function upsertHistory(brief) {
+      const items = loadHistory().filter((b) => b.id !== brief.id);
+      items.unshift(brief);
+      saveHistory(items);
+    }
+
+    function renderHistory() {
+      const items = loadHistory();
+      if (!items.length) {
+        els.historyList.innerHTML = `<p class="empty">No briefs yet — paste a link above.</p>`;
+        return;
+      }
+      els.historyList.innerHTML = items.map((b) => `
+        <button type="button" class="history-item" data-id="${b.id}">
+          <div>
+            <strong>${escapeHtml(b.title)}</strong>
+            <span>${b.type === "youtube" ? "YouTube" : "Website"} · ${new Date(b.createdAt).toLocaleString()}${b.signup === "yes" ? " · signup requested" : ""}</span>
+          </div>
+        </button>
+      `).join("");
+    }
+
+    async function analyze() {
+      clearError();
+      const raw = els.urlInput.value.trim();
+      if (!raw) {
+        showError("Paste a YouTube or website URL first.");
+        return;
+      }
+
+      let classified;
+      try {
+        classified = classifyUrl(raw);
+        // Validate absolute URL for websites
+        if (classified.type === "website") new URL(classified.url);
+      } catch (_) {
+        showError("That doesn’t look like a valid URL.");
+        return;
+      }
+
+      setBusy(true, classified.type === "youtube" ? "Fetching transcript…" : "Reading website…");
+
+      try {
+        const source =
+          classified.type === "youtube"
+            ? { type: "youtube", ...(await fetchYouTube(classified.videoId)) }
+            : { type: "website", ...(await fetchWebsite(classified.url)) };
+
+        setBusy(true, els.apiKey.value.trim() ? "Refining with AI…" : "Building brief…");
+        let brief = buildBrief(source);
+        try {
+          brief = await refineWithOpenAI(brief, source);
+        } catch (aiErr) {
+          console.warn(aiErr);
+          // Keep heuristic brief; surface soft warning
+          toast("AI refine failed — showing source brief");
+        }
+
+        upsertHistory(brief);
+        renderBrief(brief);
+      } catch (err) {
+        console.error(err);
+        showError(err.message || "Something went wrong while building the brief.");
+      } finally {
+        setBusy(false);
+      }
+    }
+
+    function signupFollowUpPrompt(brief) {
+      return `I want to sign up for: ${brief.productName}
+Product link: ${brief.productLink || brief.sourceUrl}
+Source brief URL: ${brief.sourceUrl}
+
+Please walk me through signup. Ask only for the details you need, then help me complete it.`;
+    }
+
+    els.analyzeBtn.addEventListener("click", analyze);
+    els.urlInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") analyze();
+    });
+
+    els.pasteBtn.addEventListener("click", async () => {
+      try {
+        const text = await navigator.clipboard.readText();
+        if (text) {
+          els.urlInput.value = text.trim();
+          toast("Pasted");
+        }
+      } catch (_) {
+        showError("Clipboard access blocked — paste into the field manually.");
+      }
+    });
+
+    ["dragenter", "dragover"].forEach((evt) => {
+      els.drop.addEventListener(evt, (e) => {
+        e.preventDefault();
+        els.drop.classList.add("is-drag");
+      });
+    });
+    ["dragleave", "drop"].forEach((evt) => {
+      els.drop.addEventListener(evt, (e) => {
+        e.preventDefault();
+        els.drop.classList.remove("is-drag");
+      });
+    });
+    els.drop.addEventListener("drop", (e) => {
+      const text = e.dataTransfer.getData("text/uri-list") || e.dataTransfer.getData("text/plain");
+      if (text) els.urlInput.value = text.trim().split("\n")[0];
+    });
+
+    els.copyShare.addEventListener("click", () => {
+      const url = "https://masonre21.github.io/masonre-artifacts/link-brief.html";
+      copyText(url);
+    });
+
+    els.copyAutomation.addEventListener("click", () => copyText(AUTOMATION_PROMPT));
+
+    els.signupYes.addEventListener("click", async () => {
+      if (!currentBrief) return;
+      currentBrief.signup = "yes";
+      upsertHistory(currentBrief);
+      renderBrief(currentBrief);
+      await copyText(signupFollowUpPrompt(currentBrief));
+    });
+
+    els.signupNo.addEventListener("click", () => {
+      if (!currentBrief) return;
+      currentBrief.signup = "no";
+      upsertHistory(currentBrief);
+      renderBrief(currentBrief);
+    });
+
+    els.historyList.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-id]");
+      if (!btn) return;
+      const item = loadHistory().find((b) => b.id === btn.dataset.id);
+      if (item) renderBrief(item);
+    });
+
+    // Prefill from ?url=
+    const params = new URLSearchParams(location.search);
+    if (params.get("url")) {
+      els.urlInput.value = params.get("url");
+      analyze();
+    }
+
+    renderHistory();
+  </script>
+</body>
+</html>
