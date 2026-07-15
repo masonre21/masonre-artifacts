@@ -28,7 +28,7 @@ Shareable link analyzer:
 https://masonre21.github.io/masonre-artifacts/link-brief.html
 ```
 
-Paste a YouTube or website URL → get a summary, product/service link, pricing, and reviews, then answer whether you want to sign up. The page also includes a Cursor Automation prompt so you can repeat the same workflow from Cursor.
+Paste a YouTube or website URL → get transcript/source text, a summary, numbered products/services with links and pricing, plus reviews, then answer whether you want to sign up.
 
 ## Notes
 

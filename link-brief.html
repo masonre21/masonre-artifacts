@@ -108,6 +108,12 @@
       justify-content: center;
       gap: 1.4rem;
       padding: 1rem 0 2.5rem;
+      transition: min-height 0.35s ease, padding 0.35s ease;
+    }
+
+    .hero.has-results {
+      min-height: auto;
+      padding-bottom: 1rem;
     }
 
     .hero h1 {
@@ -289,7 +295,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 0.5rem;
-      margin-bottom: 1rem;
+      margin-bottom: 0;
     }
 
     .tag {
@@ -304,39 +310,95 @@
       background: rgba(200, 230, 71, 0.08);
     }
 
-    .grid-2 {
+    .clamp-block {
       display: grid;
-      gap: 1.1rem;
-      grid-template-columns: 1fr;
+      gap: 0.65rem;
     }
 
-    @media (min-width: 760px) {
-      .grid-2 { grid-template-columns: 1fr 1fr; }
+    .clamp-text {
+      margin: 0;
+      color: var(--mist);
+      line-height: 1.55;
+      white-space: pre-wrap;
     }
 
-    .kv {
+    .clamp-text.is-collapsed {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 4;
+      overflow: hidden;
+      white-space: normal;
+    }
+
+    .clamp-toggle {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: var(--maple);
+      font: 600 0.9rem/1 var(--font-body);
+      padding: 0;
+      cursor: pointer;
+      text-align: left;
+      width: fit-content;
+    }
+
+    .clamp-toggle:hover { color: #d6f15a; }
+
+    .products {
       display: grid;
-      gap: 0.85rem;
+      gap: 1rem;
     }
 
-    .kv dt {
-      font-size: 0.78rem;
+    .product-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 1rem 1.05rem;
+      background: rgba(0, 0, 0, 0.18);
+    }
+
+    .product-card h3 {
+      margin: 0 0 0.7rem;
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--paper);
+      letter-spacing: -0.01em;
+    }
+
+    .product-card h3 .num {
+      color: var(--maple);
+      font-weight: 700;
+      margin-right: 0.35rem;
+    }
+
+    .product-meta {
+      display: grid;
+      gap: 0.55rem;
+      margin: 0;
+    }
+
+    .product-meta div {
+      display: grid;
+      gap: 0.15rem;
+    }
+
+    .product-meta dt {
+      font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 0.04em;
       color: var(--maple);
       font-weight: 600;
-      margin-bottom: 0.2rem;
     }
 
-    .kv dd {
+    .product-meta dd {
       margin: 0;
-      color: var(--paper);
-      line-height: 1.5;
+      color: var(--mist);
+      line-height: 1.45;
+      word-break: break-word;
     }
 
-    .kv a {
+    .product-meta a {
       color: var(--maple);
-      word-break: break-all;
     }
 
     .signup {
@@ -355,52 +417,6 @@
       min-height: 1.2em;
       color: var(--maple);
       font-weight: 500;
-    }
-
-    .automation {
-      margin-top: 2.5rem;
-      border-top: 1px solid var(--line);
-      padding-top: 2rem;
-    }
-
-    .automation h2 {
-      margin: 0 0 0.5rem;
-      font-family: var(--font-display);
-      font-size: 1.8rem;
-      letter-spacing: -0.03em;
-    }
-
-    .automation > p {
-      color: var(--mist);
-      max-width: 40rem;
-      line-height: 1.55;
-    }
-
-    .prompt-box {
-      margin-top: 1rem;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: rgba(0, 0, 0, 0.28);
-      padding: 1rem;
-    }
-
-    .prompt-box pre {
-      margin: 0;
-      white-space: pre-wrap;
-      word-break: break-word;
-      color: #d7e2db;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 0.82rem;
-      line-height: 1.5;
-      max-height: 220px;
-      overflow: auto;
-    }
-
-    .prompt-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.65rem;
-      margin-top: 0.85rem;
     }
 
     .settings {
@@ -542,7 +558,7 @@
 
     <section class="hero" id="hero">
       <h1>Brief<em>.</em></h1>
-      <p class="lede">Drop a YouTube or website link. Get the summary, the product, pricing, and reviews — then say if you want to sign up. Save the same flow as a Cursor Automation and run it again.</p>
+      <p class="lede">Drop a YouTube or website link. Get the transcript or page text, a short summary, and every product or service mentioned — with links, pricing, and reviews — then say if you want to sign up.</p>
 
       <div class="intake">
         <div class="drop" id="drop">
@@ -565,38 +581,37 @@
           <span class="tag" id="sourceType">Source</span>
           <span class="tag" id="sourceTitle">Title</span>
         </div>
-        <h2>Summary</h2>
-        <p id="summaryText"></p>
       </article>
 
-      <div class="grid-2">
-        <article class="panel">
-          <h2>Product / service</h2>
-          <dl class="kv">
-            <div>
-              <dt>Name</dt>
-              <dd id="productName">—</dd>
-            </div>
-            <div>
-              <dt>Link</dt>
-              <dd id="productLink">—</dd>
-            </div>
-            <div>
-              <dt>Pricing</dt>
-              <dd id="pricingText">—</dd>
-            </div>
-          </dl>
-        </article>
+      <article class="panel" id="sourceTextPanel">
+        <h2 id="sourceTextHeading">Transcript</h2>
+        <div class="clamp-block" data-clamp="source">
+          <p class="clamp-text is-collapsed" id="sourceText"></p>
+          <button type="button" class="clamp-toggle" data-clamp-toggle="source" hidden>Show all</button>
+        </div>
+      </article>
 
-        <article class="panel">
-          <h2>Reviews</h2>
-          <div id="reviewsBody"><p class="empty">No review signals found yet.</p></div>
-        </article>
-      </div>
+      <article class="panel">
+        <h2>Summary</h2>
+        <div class="clamp-block" data-clamp="summary">
+          <p class="clamp-text is-collapsed" id="summaryText"></p>
+          <button type="button" class="clamp-toggle" data-clamp-toggle="summary" hidden>Show all</button>
+        </div>
+      </article>
+
+      <article class="panel">
+        <h2>Products &amp; services</h2>
+        <div class="products" id="productsBody"></div>
+      </article>
+
+      <article class="panel">
+        <h2>Reviews</h2>
+        <div id="reviewsBody"><p class="empty">No review signals found yet.</p></div>
+      </article>
 
       <article class="panel signup">
         <p class="signup-q">Want me to sign you up?</p>
-        <p class="hint">If yes, Brief records the interest locally and copies a follow-up prompt you can send to your Cursor Automation.</p>
+        <p class="hint">If yes, Brief saves your interest and copies a short follow-up so you can finish signup later.</p>
         <div class="actions">
           <button class="btn btn-primary" id="signupYes" type="button">Yes, sign me up</button>
           <button class="btn btn-ghost" id="signupNo" type="button">Not now</button>
@@ -625,18 +640,6 @@
       </details>
     </section>
 
-    <section class="automation" id="automation">
-      <h2>Repeat as a Cursor Automation</h2>
-      <p>Copy this prompt into a new Cursor Automation so every time you drop a link, the agent runs the same Brief workflow and asks about signup.</p>
-      <div class="prompt-box">
-        <pre id="automationPrompt"></pre>
-        <div class="prompt-actions">
-          <button class="btn btn-primary" id="copyAutomation" type="button">Copy automation prompt</button>
-          <a class="btn btn-ghost" href="https://cursor.com/automations" target="_blank" rel="noopener">Open Cursor Automations</a>
-        </div>
-      </div>
-    </section>
-
     <section class="history" id="historySection">
       <h2>Recent briefs</h2>
       <div class="history-list" id="historyList">
@@ -648,28 +651,6 @@
   <div class="toast" id="toast" role="status"></div>
 
   <script>
-    const AUTOMATION_PROMPT = `You are Brief — a repeatable link analysis agent.
-
-Whenever I send a YouTube video URL or a website URL, run this exact workflow:
-
-1. Detect type
-   - YouTube / video link → fetch or download the transcript (or captions) and summarize the video.
-   - Website / article / product page → fetch the page content and summarize it.
-
-2. Produce a brief with these sections:
-   - Summary (short, clear, non-hype)
-   - Product or service being discussed (name + official link when you can find it)
-   - Pricing (list plans/prices when available; say “not found” if missing)
-   - Reviews (synthesize notable positives/negatives from the source or reputable public reviews; cite sources)
-
-3. Ask: “Want me to sign you up?”
-   - If I say yes: gather whatever is needed and help me complete signup (or prepare the signup steps/links).
-   - If I say no: stop at the brief.
-
-4. After finishing, wait for the next link and repeat the same workflow.
-
-Keep answers concise. Prefer official product pages for links and pricing. Never invent prices or reviews.`;
-
     const els = {
       urlInput: document.getElementById("urlInput"),
       drop: document.getElementById("drop"),
@@ -681,30 +662,32 @@ Keep answers concise. Prefer official product pages for links and pricing. Never
       results: document.getElementById("results"),
       sourceType: document.getElementById("sourceType"),
       sourceTitle: document.getElementById("sourceTitle"),
+      sourceTextHeading: document.getElementById("sourceTextHeading"),
+      sourceText: document.getElementById("sourceText"),
       summaryText: document.getElementById("summaryText"),
-      productName: document.getElementById("productName"),
-      productLink: document.getElementById("productLink"),
-      pricingText: document.getElementById("pricingText"),
+      productsBody: document.getElementById("productsBody"),
       reviewsBody: document.getElementById("reviewsBody"),
       signupYes: document.getElementById("signupYes"),
       signupNo: document.getElementById("signupNo"),
       signupNote: document.getElementById("signupNote"),
       apiKey: document.getElementById("apiKey"),
       modelSelect: document.getElementById("modelSelect"),
-      automationPrompt: document.getElementById("automationPrompt"),
-      copyAutomation: document.getElementById("copyAutomation"),
       copyShare: document.getElementById("copyShare"),
       historyList: document.getElementById("historyList"),
       toast: document.getElementById("toast"),
     };
 
-    const STORAGE_KEY = "brief.history.v1";
+    const STORAGE_KEY = "brief.history.v2";
     const API_KEY_STORAGE = "brief.openaiKey";
     const MODEL_STORAGE = "brief.openaiModel";
+    const JUNK_HOSTS = /(youtube\.com|youtu\.be|google\.com|facebook\.com|instagram\.com|twitter\.com|x\.com|tiktok\.com|linkedin\.com|wikipedia\.org|youtubetranscript|jina\.ai)/i;
 
     let currentBrief = null;
+    const clampState = {
+      source: { full: "", preview: "", expanded: false },
+      summary: { full: "", preview: "", expanded: false },
+    };
 
-    els.automationPrompt.textContent = AUTOMATION_PROMPT;
     els.apiKey.value = localStorage.getItem(API_KEY_STORAGE) || "";
     els.modelSelect.value = localStorage.getItem(MODEL_STORAGE) || "gpt-4o-mini";
 
@@ -774,27 +757,54 @@ Keep answers concise. Prefer official product pages for links and pricing. Never
         .trim();
     }
 
-    function sentences(text) {
-      return stripMarkdownNoise(text)
-        .split(/(?<=[.!?])\s+/)
-        .map((s) => s.trim())
-        .filter((s) => s.length > 40);
+    function cleanTranscript(raw) {
+      let text = String(raw || "");
+      // Drop metadata header from youtube-transcript.ai markdown
+      const bodyStart = text.search(/\n##\s+/);
+      if (bodyStart >= 0) text = text.slice(bodyStart);
+      text = text
+        .replace(/^#+\s*.+$/gm, "")
+        .replace(/\[\d{1,2}:\d{2}(?::\d{2})?\]\s*/g, "")
+        .replace(/\[[m]?[\d:]+\]\s*/gi, "");
+      return stripMarkdownNoise(text);
     }
 
-    function extractiveSummary(text, max = 4) {
+    function sentences(text) {
+      return String(text || "")
+        .replace(/\s+/g, " ")
+        .split(/(?<=[.!?])\s+/)
+        .map((s) => s.trim())
+        .filter((s) => s.length > 25);
+    }
+
+    function firstSentences(text, count = 3) {
+      const parts = sentences(text);
+      if (parts.length) return parts.slice(0, count).join(" ");
+      const clipped = String(text || "").trim();
+      if (!clipped) return "";
+      return clipped.length > 280 ? `${clipped.slice(0, 280).trim()}…` : clipped;
+    }
+
+    function extractiveSummary(text, max = 5) {
       const parts = sentences(text);
       if (!parts.length) {
-        const clipped = stripMarkdownNoise(text).slice(0, 480);
+        const clipped = String(text || "").trim().slice(0, 480);
         return clipped || "No summary available from this source.";
       }
       const scored = parts.map((s, i) => {
-        let score = Math.max(0, 8 - i * 0.15);
+        let score = Math.max(0, 8 - i * 0.12);
         if (/\$|price|pricing|plan|free|trial|review|rating|customer/i.test(s)) score += 2.5;
-        if (/product|service|platform|tool|app|software/i.test(s)) score += 1.5;
+        if (/product|service|platform|tool|app|software|startup|company/i.test(s)) score += 1.5;
         return { s, score };
       });
       scored.sort((a, b) => b.score - a.score);
-      return scored.slice(0, max).map((x) => x.s).join(" ");
+      const picked = [];
+      for (const item of scored) {
+        if (picked.some((p) => p.includes(item.s.slice(0, 40)) || item.s.includes(p.slice(0, 40)))) continue;
+        picked.push(item.s);
+        if (picked.length >= max) break;
+      }
+      return picked.join(" ");
     }
 
     function findUrls(text) {
@@ -802,8 +812,29 @@ Keep answers concise. Prefer official product pages for links and pricing. Never
       return [...new Set(matches.map((u) => u.replace(/[.,;:]+$/, "")))];
     }
 
+    function hostLabel(url) {
+      try {
+        const host = new URL(url).hostname.replace(/^www\./, "");
+        const base = host.split(".")[0];
+        return base.charAt(0).toUpperCase() + base.slice(1);
+      } catch (_) {
+        return "Unknown";
+      }
+    }
+
+    function findPricingNear(text, needle) {
+      if (!needle) return findPricing(text);
+      const lower = text.toLowerCase();
+      const key = needle.toLowerCase();
+      const idx = lower.indexOf(key);
+      if (idx < 0) return findPricing(text);
+      const window = text.slice(Math.max(0, idx - 240), idx + key.length + 420);
+      const local = findPricing(window);
+      return local === "Not found in source" ? findPricing(text) : local;
+    }
+
     function findPricing(text) {
-      const lines = stripMarkdownNoise(text).split(/\n+/);
+      const lines = String(text || "").split(/\n+/);
       const hits = [];
       const money = /(?:\$|USD\s?|€|£)\s?\d[\d,]*(?:\.\d{2})?(?:\s*\/\s*(?:mo|month|yr|year|user)?)?/gi;
       for (const line of lines) {
@@ -811,9 +842,9 @@ Keep answers concise. Prefer official product pages for links and pricing. Never
         money.lastIndex = 0;
         const clean = line.trim();
         if (clean.length > 8 && clean.length < 180) hits.push(clean);
-        if (hits.length >= 5) break;
+        if (hits.length >= 4) break;
       }
-      const amounts = [...new Set((text.match(money) || []).slice(0, 8))];
+      const amounts = [...new Set((String(text).match(money) || []).slice(0, 6))];
       if (hits.length) return hits.join(" · ");
       if (amounts.length) return amounts.join(", ");
       return "Not found in source";
@@ -823,30 +854,74 @@ Keep answers concise. Prefer official product pages for links and pricing. Never
       const parts = sentences(text).filter((s) =>
         /review|rated|rating|stars|customers? say|testimonial|loved|hate|complaint|pros|cons|trustpilot|g2|capterra/i.test(s)
       );
-      return parts.slice(0, 4);
+      return parts.slice(0, 5);
     }
 
-    function guessProduct(text, sourceUrl, sourceType) {
+    function findProducts(text, sourceUrl, sourceType) {
+      const products = [];
+      const seen = new Set();
+
+      function addProduct(name, link, pricing) {
+        const cleanName = String(name || "").replace(/\s+/g, " ").trim().slice(0, 80);
+        if (!cleanName || cleanName.length < 2) return;
+        const key = cleanName.toLowerCase();
+        if (seen.has(key)) return;
+        // Avoid dumping full sentences as "names"
+        if (cleanName.split(" ").length > 6) return;
+        seen.add(key);
+        products.push({
+          name: cleanName,
+          link: link || "",
+          pricing: pricing || "Not found in source",
+        });
+      }
+
+      const namedPatterns = [
+        /(?:check out|try|using|use|called|introducing|meet|launched|built)\s+([A-Z][A-Za-z0-9][\w]*(?:\s+[A-Z][A-Za-z0-9][\w]*){0,2})/g,
+        /([A-Z][A-Za-z0-9][\w]*(?:\s+[A-Z][A-Za-z0-9][\w]*){0,2})\s+(?:is an?|is the|app|tool|platform|service|software|product)/g,
+      ];
+
+      for (const re of namedPatterns) {
+        let match;
+        while ((match = re.exec(text)) !== null) {
+          addProduct(match[1], "", findPricingNear(text, match[1]));
+          if (products.length >= 8) break;
+        }
+      }
+
       const urls = findUrls(text).filter((u) => {
         try {
-          const host = new URL(u).hostname.replace(/^www\./, "");
-          if (host.includes("youtube.com") || host === "youtu.be") return false;
-          if (host.includes("google.com") || host.includes("facebook.com")) return false;
-          return true;
+          return !JUNK_HOSTS.test(new URL(u).hostname);
         } catch (_) {
           return false;
         }
       });
 
-      const titleMatch = text.match(/(?:Title|Product|Official site):\s*(.+)/i);
-      let name = titleMatch ? titleMatch[1].trim().slice(0, 80) : "";
-      if (!name) {
-        const firstLine = stripMarkdownNoise(text).split("\n").find((l) => l.length > 3) || "";
-        name = firstLine.replace(/^Transcript:\s*/i, "").slice(0, 80);
+      for (const url of urls) {
+        const name = hostLabel(url);
+        const existing = products.find((p) => p.name.toLowerCase() === name.toLowerCase());
+        if (existing) {
+          if (!existing.link) existing.link = url;
+          if (existing.pricing === "Not found in source") existing.pricing = findPricingNear(text, name);
+        } else {
+          addProduct(name, url, findPricingNear(text, name));
+        }
+        if (products.length >= 8) break;
       }
 
-      let link = urls[0] || (sourceType === "website" ? sourceUrl : "");
-      return { name: name || "Unknown product / topic", link };
+      if (!products.length && sourceType === "website") {
+        addProduct(hostLabel(sourceUrl), sourceUrl, findPricing(text));
+      }
+
+      if (!products.length) {
+        const titleMatch = text.match(/(?:Title|Product):\s*(.+)/i);
+        const fallback = titleMatch
+          ? titleMatch[1].trim().split(/[|\-–—]/)[0].trim()
+          : "";
+        addProduct(fallback || "Unknown product / topic", sourceType === "website" ? sourceUrl : "", findPricing(text));
+      }
+
+      return products.slice(0, 8);
     }
 
     async function fetchYouTube(videoId) {
@@ -899,12 +974,10 @@ Keep answers concise. Prefer official product pages for links and pricing. Never
 
       const model = els.modelSelect.value;
       const prompt = `Analyze this ${source.type} content and return ONLY valid JSON with keys:
-summary (string),
-productName (string),
-productLink (string URL or empty),
-pricing (string),
+summary (string, 4-8 sentences),
+products (array of objects: name, link, pricing — include EVERY distinct product or service mentioned; number order by importance),
 reviews (array of short strings).
-Do not invent prices or reviews. If unknown, say so.
+Do not invent prices, links, or reviews. If unknown, say "Not found".
 
 Source title: ${source.title}
 Source URL: ${source.sourceUrl}
@@ -922,7 +995,7 @@ ${source.content.slice(0, 14000)}`;
           temperature: 0.2,
           response_format: { type: "json_object" },
           messages: [
-            { role: "system", content: "You extract accurate product briefs from source content." },
+            { role: "system", content: "You extract accurate multi-product briefs from source content." },
             { role: "user", content: prompt },
           ],
         }),
@@ -936,48 +1009,118 @@ ${source.content.slice(0, 14000)}`;
       const data = await res.json();
       const raw = data.choices?.[0]?.message?.content || "{}";
       const parsed = JSON.parse(raw);
+      const products = Array.isArray(parsed.products)
+        ? parsed.products
+            .map((p) => ({
+              name: String(p.name || "").trim(),
+              link: String(p.link || "").trim(),
+              pricing: String(p.pricing || "Not found").trim() || "Not found",
+            }))
+            .filter((p) => p.name)
+        : [];
+
       return {
         ...baseBrief,
         summary: parsed.summary || baseBrief.summary,
-        productName: parsed.productName || baseBrief.productName,
-        productLink: parsed.productLink || baseBrief.productLink,
-        pricing: parsed.pricing || baseBrief.pricing,
+        products: products.length ? products : baseBrief.products,
         reviews: Array.isArray(parsed.reviews) && parsed.reviews.length ? parsed.reviews : baseBrief.reviews,
         refined: true,
       };
     }
 
     function buildBrief(source) {
-      const product = guessProduct(source.content, source.sourceUrl, source.type);
+      const bodyText = source.type === "youtube"
+        ? cleanTranscript(source.content)
+        : stripMarkdownNoise(source.content);
+
       return {
         id: crypto.randomUUID(),
         createdAt: new Date().toISOString(),
         type: source.type,
         title: source.title,
         sourceUrl: source.sourceUrl,
-        summary: extractiveSummary(source.content),
-        productName: product.name,
-        productLink: product.link,
-        pricing: findPricing(source.content),
-        reviews: findReviews(source.content),
+        sourceText: bodyText,
+        summary: extractiveSummary(bodyText),
+        products: findProducts(bodyText, source.sourceUrl, source.type),
+        reviews: findReviews(bodyText),
         signup: null,
         refined: false,
       };
     }
 
+    function setClamp(kind, fullText) {
+      const full = String(fullText || "").trim();
+      const preview = firstSentences(full, 3) || full;
+      clampState[kind] = {
+        full,
+        preview,
+        expanded: false,
+      };
+      applyClamp(kind);
+    }
+
+    function applyClamp(kind) {
+      const state = clampState[kind];
+      const textEl = kind === "source" ? els.sourceText : els.summaryText;
+      const btn = document.querySelector(`[data-clamp-toggle="${kind}"]`);
+      if (!textEl || !btn) return;
+
+      const needsToggle = state.full && state.full !== state.preview && state.full.length > state.preview.length + 20;
+      textEl.textContent = state.expanded || !needsToggle ? state.full : state.preview;
+      textEl.classList.toggle("is-collapsed", !state.expanded && needsToggle);
+      btn.hidden = !needsToggle;
+      btn.textContent = state.expanded ? "Show less" : "Show all";
+    }
+
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-clamp-toggle]");
+      if (!btn) return;
+      const kind = btn.getAttribute("data-clamp-toggle");
+      if (!clampState[kind]) return;
+      clampState[kind].expanded = !clampState[kind].expanded;
+      applyClamp(kind);
+    });
+
+    function renderProducts(products) {
+      const list = Array.isArray(products) ? products : [];
+      if (!list.length) {
+        els.productsBody.innerHTML = `<p class="empty">No products or services detected.</p>`;
+        return;
+      }
+
+      els.productsBody.innerHTML = list.map((p, i) => {
+        const linkHtml = p.link
+          ? `<a href="${escapeAttr(p.link)}" target="_blank" rel="noopener">${escapeHtml(p.link)}</a>`
+          : "Not found in source";
+        return `
+          <div class="product-card">
+            <h3><span class="num">${i + 1}.</span><strong>${escapeHtml(p.name)}</strong></h3>
+            <dl class="product-meta">
+              <div>
+                <dt>Website</dt>
+                <dd>${linkHtml}</dd>
+              </div>
+              <div>
+                <dt>Pricing</dt>
+                <dd>${escapeHtml(p.pricing || "Not found in source")}</dd>
+              </div>
+            </dl>
+          </div>
+        `;
+      }).join("");
+    }
+
     function renderBrief(brief) {
       currentBrief = brief;
       els.results.classList.add("show");
+      document.getElementById("hero")?.classList.add("has-results");
       els.sourceType.textContent = brief.type === "youtube" ? "YouTube" : "Website";
       els.sourceTitle.textContent = brief.title;
-      els.summaryText.textContent = brief.summary;
-      els.productName.textContent = brief.productName || "—";
-      if (brief.productLink) {
-        els.productLink.innerHTML = `<a href="${brief.productLink}" target="_blank" rel="noopener">${brief.productLink}</a>`;
-      } else {
-        els.productLink.textContent = "Not found in source";
-      }
-      els.pricingText.textContent = brief.pricing || "Not found in source";
+      els.sourceTextHeading.textContent = brief.type === "youtube" ? "Transcript" : "Source text";
+
+      setClamp("source", brief.sourceText || "");
+      setClamp("summary", brief.summary || "");
+      renderProducts(brief.products || legacyProducts(brief));
 
       if (brief.reviews && brief.reviews.length) {
         els.reviewsBody.innerHTML = `<ul class="clean">${brief.reviews.map((r) => `<li>${escapeHtml(r)}</li>`).join("")}</ul>`;
@@ -986,7 +1129,7 @@ ${source.content.slice(0, 14000)}`;
       }
 
       if (brief.signup === "yes") {
-        els.signupNote.textContent = "Signup interest saved. Follow-up prompt is on your clipboard.";
+        els.signupNote.textContent = "Signup interest saved. Follow-up text is on your clipboard.";
       } else if (brief.signup === "no") {
         els.signupNote.textContent = "Okay — brief only. Drop another link anytime.";
       } else {
@@ -996,12 +1139,27 @@ ${source.content.slice(0, 14000)}`;
       els.results.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
+    function legacyProducts(brief) {
+      if (brief.productName) {
+        return [{
+          name: brief.productName,
+          link: brief.productLink || "",
+          pricing: brief.pricing || "Not found in source",
+        }];
+      }
+      return [];
+    }
+
     function escapeHtml(str) {
       return String(str)
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;");
+    }
+
+    function escapeAttr(str) {
+      return escapeHtml(str).replace(/'/g, "&#39;");
     }
 
     function loadHistory() {
@@ -1050,7 +1208,6 @@ ${source.content.slice(0, 14000)}`;
       let classified;
       try {
         classified = classifyUrl(raw);
-        // Validate absolute URL for websites
         if (classified.type === "website") new URL(classified.url);
       } catch (_) {
         showError("That doesn’t look like a valid URL.");
@@ -1071,7 +1228,6 @@ ${source.content.slice(0, 14000)}`;
           brief = await refineWithOpenAI(brief, source);
         } catch (aiErr) {
           console.warn(aiErr);
-          // Keep heuristic brief; surface soft warning
           toast("AI refine failed — showing source brief");
         }
 
@@ -1086,11 +1242,13 @@ ${source.content.slice(0, 14000)}`;
     }
 
     function signupFollowUpPrompt(brief) {
-      return `I want to sign up for: ${brief.productName}
-Product link: ${brief.productLink || brief.sourceUrl}
-Source brief URL: ${brief.sourceUrl}
+      const products = brief.products || legacyProducts(brief);
+      const lines = products.map((p, i) => `${i + 1}. ${p.name}${p.link ? ` — ${p.link}` : ""}`).join("\n");
+      return `I want to sign up for one of these products from: ${brief.sourceUrl}
 
-Please walk me through signup. Ask only for the details you need, then help me complete it.`;
+${lines || brief.title}
+
+Please ask which one, then walk me through signup. Ask only for the details you need.`;
     }
 
     els.analyzeBtn.addEventListener("click", analyze);
@@ -1128,11 +1286,8 @@ Please walk me through signup. Ask only for the details you need, then help me c
     });
 
     els.copyShare.addEventListener("click", () => {
-      const url = "https://masonre21.github.io/masonre-artifacts/link-brief.html";
-      copyText(url);
+      copyText("https://masonre21.github.io/masonre-artifacts/link-brief.html");
     });
-
-    els.copyAutomation.addEventListener("click", () => copyText(AUTOMATION_PROMPT));
 
     els.signupYes.addEventListener("click", async () => {
       if (!currentBrief) return;
@@ -1156,7 +1311,6 @@ Please walk me through signup. Ask only for the details you need, then help me c
       if (item) renderBrief(item);
     });
 
-    // Prefill from ?url=
     const params = new URLSearchParams(location.search);
     if (params.get("url")) {
       els.urlInput.value = params.get("url");
