@@ -155,6 +155,27 @@
       margin: 12px 0 8px;
     }
     .plan svg { width: 100%; height: auto; display: block; }
+    .renders { display: grid; gap: 16px; margin: 12px 0 8px; }
+    .renders figure, .thumbs figure {
+      margin: 0;
+      background: var(--card);
+      border: 1px solid var(--line);
+    }
+    .renders img, .thumbs img { width: 100%; height: auto; display: block; }
+    .renders figcaption, .thumbs figcaption {
+      padding: 10px 14px 14px;
+      font-size: 13px;
+      color: var(--ink-2);
+    }
+    .thumbs {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    @media (max-width: 860px) {
+      .thumbs { grid-template-columns: 1fr; }
+    }
     ol.steps { margin: 8px 0 0; padding-left: 22px; color: var(--ink-2); }
     ol.steps li { margin: 0 0 8px; }
     .manuals {
@@ -216,7 +237,8 @@
       a { color: #000; }
       body { background: #fff; }
       main { padding: 0; }
-      .card, .plan, .callout, .stat, .manual { break-inside: avoid; }
+      .card, .plan, .callout, .stat, .manual, .renders figure { break-inside: avoid; }
+      .renders img { max-height: 9.5in; object-fit: contain; }
     }
   </style>
 </head>
@@ -236,6 +258,7 @@
 
   <nav>
     <div class="wrap">
+      <a href="#render">Rendering</a>
       <a href="#answer">Power location</a>
       <a href="#circuits">Circuits</a>
       <a href="#plan">Plan</a>
@@ -252,6 +275,46 @@
       <div class="stat"><b>≤ 20 in</b><span>Interior J-box above floor</span></div>
       <div class="stat"><b>No GFCI</b><span>Saunum forbids it on the heater</span></div>
     </div>
+
+    <section id="render">
+      <h2>Show this to the electrician</h2>
+      <p>
+        Same CL7G cabin and Saunum Air L heater as the product photos. Benches stay on the
+        back wall. Land power on the solid side wall closest to the house panel — never the glass.
+        The heater fan at the base must blow under those benches.
+      </p>
+      <div class="renders">
+        <figure>
+          <img src="images/cl7g-electrician-interior.png" alt="Interior rendering: Saunum Air L on the left solid side wall, two-tier benches on the back wall, fan arrows under the benches, junction box max 20 inches above the floor" />
+          <figcaption>
+            Interior: pick the solid side wall closest to the panel. Interior J-box max 20 in above
+            the floor, next to the heater. Fan path is under the back-wall benches. No power on the glass.
+          </figcaption>
+        </figure>
+        <figure>
+          <img src="images/cl7g-electrician-cutaway-v2.png" alt="Exterior rendering of the CL7G showing the outdoor disconnect and AirIQ enclosure on the solid side wall" />
+          <figcaption>
+            Exterior of that same side wall: disconnect + AirIQ power unit in a weatherproof box,
+            conduit up from the pad. Mirror this to the right wall if that run is shorter.
+          </figcaption>
+        </figure>
+      </div>
+      <p style="font-size:13px;color:var(--muted);">Product photos of the cabin and heater this is based on:</p>
+      <div class="thumbs">
+        <figure>
+          <img src="images/cl7g-hero.jpg" alt="SaunaLife CL7G exterior, glass front and solid side wall" />
+          <figcaption>CL7G exterior — glass front, solid side walls</figcaption>
+        </figure>
+        <figure>
+          <img src="images/cl7g-3.jpg" alt="SaunaLife CL7G with back-wall benches visible through the glass" />
+          <figcaption>CL7G — two-tier benches on the back wall</figcaption>
+        </figure>
+        <figure>
+          <img src="images/airl-1.jpg" alt="Saunum Air L heater, AirIQ controller, and stones" />
+          <figcaption>Saunum Air L 13 kW — fan at the base</figcaption>
+        </figure>
+      </div>
+    </section>
 
     <section id="answer">
       <h2>The answer for the box location</h2>
