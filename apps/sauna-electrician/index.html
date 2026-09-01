@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>Electrician briefing — CL7G outdoor sauna, Hollywood FL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #161410;
+      --ink-2: #3a372f;
+      --muted: #6b6558;
+      --line: #d9d2c4;
+      --paper: #f6f1e7;
+      --card: #fffdf8;
+      --heat: #c45a1a;
+      --heat-deep: #8c3a0e;
+      --warn: #9a6b00;
+      --warn-bg: #f8ecd0;
+      --ok: #2f6b45;
+      --ok-bg: #e4f0e6;
+      --glass: #3d6d8c;
+      --shadow: 0 1px 0 rgba(22,20,16,.06);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.5;
+    }
+    a { color: var(--heat-deep); }
+    .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; }
+    header {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 28px 20px 22px;
+    }
+    header .wrap { max-width: 1080px; margin: 0 auto; }
+    .kicker {
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 11px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: #e0b48a;
+      margin: 0 0 10px;
+    }
+    h1 {
+      font-size: clamp(26px, 4vw, 40px);
+      font-weight: 600;
+      letter-spacing: -.02em;
+      margin: 0 0 8px;
+      line-height: 1.15;
+    }
+    .lede { color: #d4cdc0; max-width: 62ch; margin: 0; }
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: #1c1914;
+      border-bottom: 1px solid #3a342c;
+    }
+    nav .wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      padding: 0 12px;
+    }
+    nav a {
+      color: #d4cdc0;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 12px 12px;
+      white-space: nowrap;
+    }
+    nav a:hover { color: #fff; }
+    main { max-width: 1080px; margin: 0 auto; padding: 28px 20px 80px; }
+    h2 {
+      font-size: 22px;
+      margin: 40px 0 12px;
+      letter-spacing: -.02em;
+    }
+    h3 { font-size: 16px; margin: 0 0 8px; }
+    p { margin: 0 0 12px; color: var(--ink-2); }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 22px 0 8px;
+    }
+    .stat {
+      background: var(--card);
+      border: 1px solid var(--line);
+      padding: 14px 14px 12px;
+    }
+    .stat b {
+      display: block;
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -.03em;
+    }
+    .stat span { font-size: 12px; color: var(--muted); }
+    .callout {
+      border-left: 4px solid var(--heat);
+      background: #f3e6d6;
+      padding: 14px 16px;
+      margin: 16px 0 22px;
+    }
+    .callout.warn { border-color: var(--warn); background: var(--warn-bg); }
+    .callout.ok { border-color: var(--ok); background: var(--ok-bg); }
+    .callout strong { display: block; margin-bottom: 4px; }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 16px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      padding: 16px 18px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      background: var(--card);
+    }
+    th, td {
+      text-align: left;
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+    th {
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    td.mono, .num { font-family: "IBM Plex Mono", ui-monospace, monospace; }
+    .plan {
+      background: var(--card);
+      border: 1px solid var(--line);
+      padding: 12px;
+      margin: 12px 0 8px;
+    }
+    .plan svg { width: 100%; height: auto; display: block; }
+    ol.steps { margin: 8px 0 0; padding-left: 22px; color: var(--ink-2); }
+    ol.steps li { margin: 0 0 8px; }
+    .manuals {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .manual {
+      background: var(--card);
+      border: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+    .manual header.mh {
+      background: transparent;
+      color: inherit;
+      padding: 12px 14px 8px;
+    }
+    .manual h3 { margin: 0 0 2px; font-size: 15px; }
+    .manual p { font-size: 13px; margin: 0 0 8px; }
+    .manual .actions { padding: 0 14px 10px; display: flex; gap: 10px; flex-wrap: wrap; font-size: 13px; }
+    iframe.pdf {
+      width: 100%;
+      height: 520px;
+      border: 0;
+      border-top: 1px solid var(--line);
+      background: #eee;
+    }
+    .full { grid-column: 1 / -1; }
+    .full iframe.pdf { height: 720px; }
+    footer {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 20px 40px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .print-btn {
+      display: inline-block;
+      margin-top: 14px;
+      background: var(--heat);
+      color: #fff;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 12px;
+      border: 0;
+      cursor: pointer;
+    }
+    @media (max-width: 860px) {
+      .stats, .grid-2, .manuals { grid-template-columns: 1fr; }
+      iframe.pdf, .full iframe.pdf { height: 420px; }
+    }
+    @media print {
+      nav, .print-btn, iframe.pdf { display: none !important; }
+      header { background: #fff; color: #000; padding: 0 0 12px; }
+      .lede { color: #333; }
+      a { color: #000; }
+      body { background: #fff; }
+      main { padding: 0; }
+      .card, .plan, .callout, .stat, .manual { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <p class="kicker">Job packet · Hollywood, Florida · outdoor sauna</p>
+      <h1>Where the electric lands on this sauna</h1>
+      <p class="lede">
+        SaunaLife CL7G cube + Saunum Air L 13 kW. The cabin has no factory knockout.
+        Put the outdoor box on a solid side wall, and a splashproof junction box inside
+        that same wall, no higher than 20 inches off the floor.
+      </p>
+      <button class="print-btn" type="button" onclick="window.print()">Print this brief</button>
+    </div>
+  </header>
+
+  <nav>
+    <div class="wrap">
+      <a href="#answer">Power location</a>
+      <a href="#circuits">Circuits</a>
+      <a href="#plan">Plan</a>
+      <a href="#path">Run path</a>
+      <a href="#manuals">Manuals</a>
+      <a href="#notes">Florida notes</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="stats">
+      <div class="stat"><b>13 kW</b><span>Saunum Air L · 240 V 1-ph</span></div>
+      <div class="stat"><b>53.75 A</b><span>Nameplate · size 70 A breaker</span></div>
+      <div class="stat"><b>≤ 20 in</b><span>Interior J-box above floor</span></div>
+      <div class="stat"><b>No GFCI</b><span>Saunum forbids it on the heater</span></div>
+    </div>
+
+    <section id="answer">
+      <h2>The answer for the box location</h2>
+      <div class="callout">
+        <strong>There is no factory power exit on the CL7G.</strong>
+        It is a stave-built wood kit. The electrician chooses the wall. The Saunum Air L
+        manual (your copy, Apr 2025, p. 33) requires a splashproof junction box on the
+        sauna-room wall, maximum 20 inches from the floor, with the heater connected in
+        a half-stationary position. Land house power on the exterior of that same wall.
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Put it here</h3>
+          <p>One <b>solid side wall</b> (left or right as you face the glass). Pick the side closer to the house panel.</p>
+          <p><b>Outside that wall:</b> weatherproof enclosure with disconnect, AirIQ power unit, and the 90 W LED supply. Near the coast use NEMA 4X stainless.</p>
+          <p><b>Inside that wall:</b> splashproof J-box, max 20 in AFF, beside/behind the heater. Heater cables in the package are 5 ft. AirIQ power-unit cords are 16 ft.</p>
+        </div>
+        <div class="card">
+          <h3>Do not put it here</h3>
+          <p>Not on the <b>glass front wall</b>. The heater cannot mount there, and there is no chase through the glass.</p>
+          <p>Not high on the interior wall. Above 40 in inside the steam room, conductors must be 302 °F / 125 °C (SSJ-type). Keep the heater feed low.</p>
+          <p>Not the AirIQ touch panel or contactor in the steam room. Control panel is IP20 — outdoors it must sit in the enclosure.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="circuits">
+      <h2>Circuits to pull</h2>
+      <p>Primary source: Saunum Air L instruction V_24_11.1 (the PDF attached below), Table 1 and Electrical Connections. Topture’s 13 kW package listing matches a 70 A / #6 feed.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Circuit</th>
+            <th>Load</th>
+            <th>Breaker / wire</th>
+            <th>Where it terminates</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Heater + AirIQ</td>
+            <td class="mono">13 kW · 240 V · 1-ph · 53.75 A</td>
+            <td>70 A, <span class="mono">#6 + N + G</span> copper 90 °C. <b>Not GFCI.</b></td>
+            <td>Exterior enclosure → interior J-box ≤ 20 in AFF → heater bottom panel</td>
+          </tr>
+          <tr>
+            <td>LED lighting</td>
+            <td class="mono">120 V · 90 W supply · 24 V DC fixtures</td>
+            <td>15 A / 120 V</td>
+            <td>Same exterior enclosure. Driver/PSU must stay dry. 30 ft light cable included.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-size:13px;color:var(--muted);margin-top:10px;">
+        Air L 13 nameplate in this manual: 12,900 W, 53.75 A. NEC 424 continuous load × 125% ≈ 67 A → 70 A breaker.
+        Topture listing: 54 A, 70 A, (2) #6 + N + G. High-temp (125 °C) wire if any steam-room conductor is above 40 in or in the wall cavity.
+        Equipment below 40 in: 90 °C / 194 °F.
+      </p>
+    </section>
+
+    <section id="plan">
+      <h2>Plan view — pick the side nearer the house feed</h2>
+      <p>Interior 87.5 in W × 70.8 in D × 85.5 in H. Glass is the front. Benches on the back wall. Heater is floor-standing, about 18 in wide × 15 in deep, 73–94 in tall. Fan must blow under the benches. 20 in clear in front of the fan outlet.</p>
+      <div class="plan">
+        <svg viewBox="0 0 720 430" role="img" aria-label="CL7G plan: glass front, benches on back wall, heater and electrical on the right side wall">
+          <rect x="0" y="0" width="720" height="430" fill="#fffdf8"/>
+          <text x="360" y="28" text-anchor="middle" fill="#6b6558" font-size="13" font-family="IBM Plex Sans, sans-serif">Back wall · solid thermo-spruce · benches</text>
+          <rect x="170" y="48" width="320" height="268" fill="#f6f1e7" stroke="#161410" stroke-width="2"/>
+          <rect x="170" y="48" width="320" height="12" fill="#c4b49a"/>
+          <rect x="170" y="48" width="12" height="256" fill="#c4b49a"/>
+          <rect x="478" y="48" width="12" height="256" fill="#c4b49a"/>
+          <rect x="170" y="304" width="320" height="12" fill="#3d6d8c"/>
+          <rect x="214" y="72" width="232" height="38" fill="#d9cbb3" stroke="#161410"/>
+          <rect x="214" y="114" width="232" height="22" fill="#e8dcc8" stroke="#161410"/>
+          <text x="330" y="96" text-anchor="middle" fill="#161410" font-size="12" font-family="IBM Plex Sans, sans-serif">Upper bench</text>
+          <text x="330" y="129" text-anchor="middle" fill="#6b6558" font-size="11" font-family="IBM Plex Sans, sans-serif">Lower bench — fan blows under here</text>
+          <rect x="448" y="168" width="28" height="92" fill="#c45a1a"/>
+          <text x="462" y="218" text-anchor="middle" fill="#fff" font-size="12" font-family="IBM Plex Sans, sans-serif">H</text>
+          <rect x="436" y="262" width="22" height="16" fill="#e0b48a" stroke="#161410"/>
+          <text x="447" y="294" text-anchor="middle" fill="#161410" font-size="11" font-family="IBM Plex Sans, sans-serif">J-box ≤20"</text>
+          <rect x="512" y="168" width="88" height="108" fill="#fff" stroke="#161410" stroke-dasharray="5 4"/>
+          <text x="556" y="192" text-anchor="middle" fill="#161410" font-size="12" font-family="IBM Plex Sans, sans-serif">Exterior box</text>
+          <text x="556" y="212" text-anchor="middle" fill="#6b6558" font-size="11" font-family="IBM Plex Sans, sans-serif">disconnect</text>
+          <text x="556" y="228" text-anchor="middle" fill="#6b6558" font-size="11" font-family="IBM Plex Sans, sans-serif">AirIQ power</text>
+          <text x="556" y="244" text-anchor="middle" fill="#6b6558" font-size="11" font-family="IBM Plex Sans, sans-serif">LED PSU</text>
+          <text x="556" y="260" text-anchor="middle" fill="#6b6558" font-size="11" font-family="IBM Plex Sans, sans-serif">NEMA 4X</text>
+          <line x1="476" y1="214" x2="512" y2="214" stroke="#c45a1a" stroke-width="3"/>
+          <text x="330" y="338" text-anchor="middle" fill="#3d6d8c" font-size="13" font-family="IBM Plex Sans, sans-serif">Front · 8 mm bronze tempered glass + door — no power here</text>
+          <text x="86" y="180" text-anchor="middle" fill="#6b6558" font-size="12" font-family="IBM Plex Sans, sans-serif">Left wall</text>
+          <text x="86" y="198" text-anchor="middle" fill="#6b6558" font-size="11" font-family="IBM Plex Sans, sans-serif">OK if closer</text>
+          <text x="86" y="214" text-anchor="middle" fill="#6b6558" font-size="11" font-family="IBM Plex Sans, sans-serif">to the panel</text>
+          <text x="24" y="400" fill="#6b6558" font-size="11" font-family="IBM Plex Sans, sans-serif">Not to scale. Exterior ~91 in W × 87 in D × 93 in H. Heater on a wood side wall only. Mirror this layout to the left if that run is shorter.</text>
+        </svg>
+      </div>
+    </section>
+
+    <section id="path">
+      <h2>House panel → sauna</h2>
+      <ol class="steps">
+        <li><b>Panel:</b> dedicated 240 V 1-phase, 70 A two-pole, #6+N+G copper (90 °C). No GFCI on this circuit. Confirm spare capacity before pulling — 70 A is a real load.</li>
+        <li><b>Run:</b> buried conduit to the sauna. Hollywood / Broward electrical permit. Disconnect in sight of the equipment.</li>
+        <li><b>Exterior enclosure</b> on the heater side wall: disconnect + AirIQ power unit (IP44, 2.4 × 10.1 × 6.5 in) + LED 90 W supply / RF driver. Touch panel (IP20) in the same dry box.</li>
+        <li><b>Penetrate low</b> into the cabin. Interior splashproof J-box, max 20 in AFF. Heater bottom panel opens with two bolts underneath.</li>
+        <li><b>Heater:</b> rear against cladding, 2 in side/front clearance for the solid-steel body (8 in / 10 in if the open stainless cage is used). 20 in clear in front of the fan. Air outlet below the lower bench.</li>
+      </ol>
+      <div class="callout warn">
+        <strong>Do not connect the heater through a GFCI breaker.</strong>
+        Stated twice in the Air L manual (Table 1 and Electrical Connections). Moisture in new elements can show leakage on insulation-resistance tests until the heater has been run a few times.
+      </div>
+    </section>
+
+    <section id="manuals">
+      <h2>Manufacturer manuals</h2>
+      <p>These are the PDFs to work from on site. The Air L file is the owner’s Apr 2025 copy. Electrical connections start at page 33.</p>
+      <div class="manuals">
+        <article class="manual full">
+          <header class="mh">
+            <h3>Saunum Air L 10 / 13 / 15 — instructions for use and installation</h3>
+            <p>V_24_11.1 · 40 pages · owner file Air-L_10-15KW_4-25.pdf. Opened on the electrical-connections page.</p>
+          </header>
+          <div class="actions">
+            <a href="manuals/saunum-air-l-10-15kw.pdf" download>Download PDF</a>
+            <a href="manuals/saunum-air-l-10-15kw.pdf#page=7">Wiring schematic (p. 7)</a>
+            <a href="manuals/saunum-air-l-10-15kw.pdf#page=8">Table 1 specs (p. 8–9)</a>
+            <a href="manuals/saunum-air-l-10-15kw.pdf#page=29">Electrical connections (p. 33)</a>
+            <a href="manuals/saunum-air-l-10-15kw.pdf#page=30">J-box diagram (p. 34)</a>
+          </div>
+          <iframe class="pdf" title="Saunum Air L installation manual" src="manuals/saunum-air-l-10-15kw.pdf#page=29"></iframe>
+        </article>
+
+        <article class="manual">
+          <header class="mh">
+            <h3>Saunum AirIQ control</h3>
+            <p>US install. Power unit outside the steam room. Panel in a protective enclosure when used outdoors.</p>
+          </header>
+          <div class="actions">
+            <a href="manuals/saunum-airiq.pdf" download>Download PDF</a>
+            <a href="manuals/saunum-airiq.pdf#page=13">Electrical connections</a>
+          </div>
+          <iframe class="pdf" title="Saunum AirIQ manual" src="manuals/saunum-airiq.pdf#page=13"></iframe>
+        </article>
+
+        <article class="manual">
+          <header class="mh">
+            <h3>SaunaLife CL7G cabin</h3>
+            <p>Assembly manual v2.1. No electrical chase. Heater placed before the guard. Glass is the front wall.</p>
+          </header>
+          <div class="actions">
+            <a href="manuals/saunalife-cl7g-install.pdf" download>Download PDF</a>
+          </div>
+          <iframe class="pdf" title="SaunaLife CL7G installation manual" src="manuals/saunalife-cl7g-install.pdf"></iframe>
+        </article>
+
+        <article class="manual full">
+          <header class="mh">
+            <h3>SaunaLife LED light system</h3>
+            <p>120 VAC to 24 VDC. Driver and power supply in a dry / weatherproof enclosure. Keep fixtures 20 in from the heater.</p>
+          </header>
+          <div class="actions">
+            <a href="manuals/saunalife-led-lights.pdf" download>Download PDF</a>
+          </div>
+          <iframe class="pdf" title="SaunaLife LED light system manual" src="manuals/saunalife-led-lights.pdf"></iframe>
+        </article>
+      </div>
+    </section>
+
+    <section id="notes">
+      <h2>Site notes — Hollywood, FL</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Permits</h3>
+          <p>City of Hollywood Building Division: accessory structure (like a gazebo) plus a separate electrical permit. Broward is HVHZ. Disconnect in sight of equipment. Confirm glass/fenestration with plan review — the 8 mm tempered front is safety glass, not impact-rated hurricane glass.</p>
+        </div>
+        <div class="card">
+          <h3>Clearances from this Air L manual</h3>
+          <p>Solid steel body: 2 in sides, 2 in front. Stainless cage body: 8 in sides, 10 in front. Fan output: 20 in. Ceiling to protective grille: 41 in on the 13 kW. Min ceiling height 79 in. Device rear may sit against cladding; only the rear.</p>
+        </div>
+      </div>
+      <table style="margin-top:16px">
+        <thead>
+          <tr><th>Equipment</th><th>Model</th><th>Source</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Cabin</td>
+            <td>SaunaLife CL7G · 6-person cube · thermo-spruce</td>
+            <td><a href="https://topture.com/products/saunalife-cl7g-cube-sauna">Topture product page</a></td>
+          </tr>
+          <tr>
+            <td>Heater</td>
+            <td>Saunum Air L 13 kW + AirIQ Wi-Fi · variant 49900997640456</td>
+            <td><a href="https://topture.com/products/saunum-air-l-electric-sauna-heater-package?variant=49900997640456">Topture heater package</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer>
+    Field packet for the installing electrician. Specs transcribed from Saunum Air L V_24_11.1, AirIQ US install, SaunaLife CL7G v2.1, and the SaunaLife LED manual. Final sizing, fill, and means of disconnect per NEC and City of Hollywood. Hosted as a public link for job-site access.
+  </footer>
+</body>
+</html>
