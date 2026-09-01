@@ -118,6 +118,16 @@
     .callout.warn { border-color: var(--warn); background: var(--warn-bg); }
     .callout.ok { border-color: var(--ok); background: var(--ok-bg); }
     .callout strong { display: block; margin-bottom: 4px; }
+    .quote {
+      margin: 10px 0 8px;
+      padding: 0 0 0 14px;
+      border-left: 3px solid var(--ok);
+      color: var(--ink-2);
+      font-size: 15px;
+    }
+    .quote p { margin: 0 0 8px; }
+    .quote p:last-child { margin: 0; }
+    .source { font-size: 12px; color: var(--muted); margin: 8px 0 0; }
     .grid-2 {
       display: grid;
       grid-template-columns: 1.15fr .85fr;
@@ -237,7 +247,7 @@
       a { color: #000; }
       body { background: #fff; }
       main { padding: 0; }
-      .card, .plan, .callout, .stat, .manual, .renders figure { break-inside: avoid; }
+      .card, .plan, .callout, .stat, .manual, .renders figure, .quote { break-inside: avoid; }
       .renders img { max-height: 9.5in; object-fit: contain; }
     }
   </style>
@@ -251,6 +261,7 @@
         SaunaLife CL7G cube + Saunum Air L 13 kW. Benches are on the left and right.
         The heater sits on the empty center of the back wall. Land power on that back
         wall: exterior disconnect outside, splashproof J-box inside, max 20 inches off the floor.
+        Topture confirmed the feed does not land on the heater, and Saunum forbids a GFCI.
       </p>
       <button class="print-btn" type="button" onclick="window.print()">Print this brief</button>
     </div>
@@ -259,6 +270,7 @@
   <nav>
     <div class="wrap">
       <a href="#render">Rendering</a>
+      <a href="#dealer">Topture</a>
       <a href="#answer">Power location</a>
       <a href="#circuits">Circuits</a>
       <a href="#plan">Plan</a>
@@ -320,6 +332,25 @@
       </div>
     </section>
 
+    <section id="dealer">
+      <h2>Dealer confirmation — Topture, 1 Sep 2026</h2>
+      <p>
+        Topture answered the same question this packet is built around. They confirm
+        the 240 V path and the GFCI prohibition. They did not name which interior wall —
+        that still comes from the CL7G install manual: the heater wall, which is the
+        back-wall center (fence side on this lot).
+      </p>
+      <div class="callout ok">
+        <strong>From Topture</strong>
+        <div class="quote">
+          <p>The 240V feed doesn’t land on the heater directly. Your electrician runs it from the panel into a splashproof junction box mounted on the inside wall of the sauna room, no higher than 20 inches off the floor. The heater connects into that box at its base.</p>
+          <p>Nameplate on the 13 kW is 240V single phase — he sizes the breaker and wiring from there per NEC and local code.</p>
+          <p>One thing to flag for him: Saunum prohibits running this heater on a GFCI breaker. Easy default to fall into on an outdoor circuit.</p>
+        </div>
+        <p class="source">Topture also sent the Air L manual we already host below: <a href="https://cdn.shopify.com/s/files/1/0542/4037/9061/files/Air-L_10-15KW_4-25.pdf">Air-L_10-15KW_4-25.pdf</a> (same file as <a href="manuals/saunum-air-l-10-15kw.pdf">the PDF on this page</a>).</p>
+      </div>
+    </section>
+
     <section id="answer">
       <h2>The answer for the box location</h2>
       <div class="callout">
@@ -327,7 +358,8 @@
         The CL7G is a wood kit. Per the install manual, the heater sits on the empty
         center of the back wall, between the left and right benches. The Saunum Air L
         needs a splashproof interior J-box on that same wall, max 20 in from the floor.
-        House feed lands on the exterior of that back wall.
+        House feed lands on the exterior of that back wall. Topture’s 1 Sep 2026 note
+        matches this path; they left wall selection to the cabin layout.
       </div>
       <div class="grid-2">
         <div class="card">
@@ -437,7 +469,7 @@
         <article class="manual full">
           <header class="mh">
             <h3>Saunum Air L 10 / 13 / 15 — instructions for use and installation</h3>
-            <p>V_24_11.1 · 40 pages · owner file Air-L_10-15KW_4-25.pdf. Opened on the electrical-connections page.</p>
+            <p>V_24_11.1 · 40 pages · same file Topture emailed (Air-L_10-15KW_4-25.pdf). Opened on the electrical-connections page.</p>
           </header>
           <div class="actions">
             <a href="manuals/saunum-air-l-10-15kw.pdf" download>Download PDF</a>
@@ -520,7 +552,7 @@
   </main>
 
   <footer>
-    Field packet for the installing electrician. Specs transcribed from Saunum Air L V_24_11.1, AirIQ US install, SaunaLife CL7G v2.1, and the SaunaLife LED manual. Final sizing, fill, and means of disconnect per NEC and City of Hollywood. Hosted as a public link for job-site access.
+    Field packet for the installing electrician. Specs transcribed from Saunum Air L V_24_11.1, AirIQ US install, SaunaLife CL7G v2.1, the SaunaLife LED manual, and Topture’s 1 Sep 2026 dealer note. Final sizing, fill, and means of disconnect per NEC and City of Hollywood. Hosted as a public link for job-site access.
   </footer>
 </body>
 </html>
