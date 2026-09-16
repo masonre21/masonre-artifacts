@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>FLL → Montreal · Sep 8–9, 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #0c1210;
+      --panel: rgba(18, 32, 28, 0.72);
+      --line: rgba(200, 230, 71, 0.18);
+      --mist: #9eb0a6;
+      --paper: #f3f6f1;
+      --maple: #c8e647;
+      --maple-deep: #a8c42e;
+      --warn: #f0b429;
+      --radius: 18px;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+      --font-display: "Fraunces", Georgia, serif;
+      --font-body: "Figtree", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-body);
+      color: var(--paper);
+      background:
+        radial-gradient(1100px 640px at 10% -8%, rgba(200, 230, 71, 0.16), transparent 55%),
+        radial-gradient(800px 520px at 96% 6%, rgba(62, 140, 120, 0.22), transparent 50%),
+        linear-gradient(165deg, #07100d 0%, #0c1210 42%, #13221c 100%);
+    }
+    .wrap { width: min(880px, calc(100% - 2rem)); margin: 0 auto; padding: 1.4rem 0 4rem; }
+    .brand { font-family: var(--font-display); color: var(--maple); font-size: 1.2rem; font-weight: 700; }
+    .brand span { color: var(--paper); font-weight: 500; }
+    .eyebrow {
+      display: inline-block;
+      margin: 2.2rem 0 0.7rem;
+      color: var(--maple);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 0 0 0.6rem;
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 7vw, 4.1rem);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+    }
+    .lede { color: var(--mist); font-size: 1.05rem; max-width: 42rem; line-height: 1.55; }
+    .note {
+      margin: 1.2rem 0 0;
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(240, 180, 41, 0.08);
+      color: var(--paper);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+    .note strong { color: var(--warn); }
+    .actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.4rem; }
+    a.btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 0.78rem 1.15rem;
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+    a.btn.primary { background: var(--maple); color: #10180f; }
+    a.btn.primary:hover { background: var(--maple-deep); }
+    a.btn.ghost {
+      border: 1px solid var(--line);
+      color: var(--paper);
+      background: rgba(255,255,255,0.04);
+    }
+    a.btn.ghost:hover { border-color: rgba(200, 230, 71, 0.45); }
+    h2 {
+      margin: 2.6rem 0 0.8rem;
+      font-family: var(--font-display);
+      font-size: 1.7rem;
+      letter-spacing: -0.03em;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.25rem 1.3rem 1.35rem;
+      margin: 0.85rem 0;
+      backdrop-filter: blur(10px);
+    }
+    .card.pick { border-color: rgba(200, 230, 71, 0.45); }
+    .tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #10180f;
+      background: var(--maple);
+      border-radius: 999px;
+      padding: 0.22rem 0.55rem;
+      margin-bottom: 0.55rem;
+    }
+    .tag.alt { background: transparent; color: var(--maple); border: 1px solid var(--line); }
+    .pair { display: grid; gap: 0.85rem; }
+    @media (min-width: 720px) {
+      .pair { grid-template-columns: 1fr 1fr; }
+    }
+    .flight {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 0.95rem 1rem;
+      background: rgba(0,0,0,0.18);
+    }
+    .dir { color: var(--maple); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
+    .times { font-family: var(--font-display); font-size: 1.55rem; margin: 0.2rem 0 0.15rem; letter-spacing: -0.03em; }
+    .meta { color: var(--mist); font-size: 0.9rem; line-height: 1.45; }
+    .price {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      margin: 0.4rem 0 0.15rem;
+    }
+    .muted { color: var(--mist); font-size: 0.88rem; line-height: 1.5; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+    th, td { text-align: left; padding: 0.65rem 0.4rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { color: var(--mist); font-weight: 600; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; }
+    ul { margin: 0.4rem 0 0; padding-left: 1.15rem; color: var(--mist); line-height: 1.55; }
+    li { margin: 0.25rem 0; }
+    footer { margin-top: 2.8rem; color: var(--mist); font-size: 0.8rem; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="brand">masonre <span>travel</span></div>
+    <div class="eyebrow">Fort Lauderdale → Montréal-Trudeau</div>
+    <h1>Tue Sep 8 out,<br />Wed Sep 9 evening back.</h1>
+    <p class="lede">
+      True first class is not sold on this 3.5-hour hop. The closest match to “first class or extra legroom”
+      is Air Canada nonstop both ways: Premium Rouge extra-legroom outbound, then a real Business Class
+      recliner on the A220 home.
+    </p>
+    <p class="note">
+      <strong>This page does not purchase a ticket.</strong>
+      Use the buttons below to open the live Air Canada / Google Flights search with these dates filled in.
+      Fares checked Aug 18, 2026 and will move.
+    </p>
+    <div class="actions">
+      <a class="btn primary" href="https://www.aircanada.com/us/en/aco/home.html#/search?org0=FLL&dest0=YUL&departureDate0=2026-09-08&org1=YUL&dest1=FLL&departureDate1=2026-09-09&ADT=1&tripType=R" target="_blank" rel="noopener">Book on Air Canada</a>
+      <a class="btn ghost" href="https://www.google.com/travel/flights/search?q=Business%20class%20flights%20from%20Fort%20Lauderdale%20to%20Montreal%20on%202026-09-08%20through%202026-09-09&hl=en&curr=USD" target="_blank" rel="noopener">Google Flights · Business</a>
+      <a class="btn ghost" href="https://www.google.com/travel/flights/search?q=Flights%20from%20Fort%20Lauderdale%20to%20Montreal%20on%202026-09-08%20through%202026-09-09&hl=en&curr=USD" target="_blank" rel="noopener">Google Flights · Economy</a>
+    </div>
+
+    <h2>Book this</h2>
+    <div class="card pick">
+      <span class="tag">Recommended</span>
+      <p class="price">from $402 economy · ~$1,375–$1,859 premium</p>
+      <p class="muted">Round trip, 1 adult, taxes included. Mix cabins on Air Canada: Premium Rouge out, Business Class back.</p>
+      <div class="pair" style="margin-top:1rem">
+        <div class="flight">
+          <div class="dir">Outbound · Tue Sep 8</div>
+          <div class="times">12:40p → 4:03p</div>
+          <p class="meta">
+            AC1605 · FLL–YUL nonstop · 3h 23m<br />
+            Air Canada Rouge Airbus A321<br />
+            Book <strong style="color:var(--paper)">Premium Rouge</strong> — 2-2 recliner, ~36″ pitch, 21″ wide. Skip the 8:55p red-eye; it lands after midnight and wastes the overnight.
+          </p>
+        </div>
+        <div class="flight">
+          <div class="dir">Return · Wed Sep 9 evening</div>
+          <div class="times">6:05p → 9:39p</div>
+          <p class="meta">
+            AC1008 · YUL–FLL nonstop · 3h 34m<br />
+            Air Canada mainline Airbus A220-300<br />
+            Book <strong style="color:var(--paper)">Business Class</strong> — 12 seats, 2-2, ~37″ pitch, legrest + footrest. This is the only FLL nonstop that evening, and the only one with a real J cabin.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <h2>If you want extra legroom without Business</h2>
+    <div class="card">
+      <span class="tag alt">Cheaper comfort</span>
+      <p class="muted">Same two flights. Buy Standard/Flex economy (~$402 RT), then add Preferred or exit-row seats at booking or check-in.</p>
+      <ul>
+        <li>Rouge A321 outbound: exit rows 18 / 31, or bulkhead row 12 — extra pitch vs 30″ coach.</li>
+        <li>A220 return: exit rows 12–13 are ~35″. Avoid the last few rows; they pinch.</li>
+        <li>Preferred seats are typically tens of dollars each way, not hundreds.</li>
+      </ul>
+    </div>
+
+    <h2>First-class alternatives</h2>
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>Option</th>
+            <th>What you get</th>
+            <th>Tradeoff</th>
+            <th>From</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>American via PHL<br />FLL 3:25p → YUL 9:44p</td>
+            <td>Domestic First + Business on regional jets</td>
+            <td>1 stop, ~6h 19m. Tight for a one-night trip; evening return will also connect.</td>
+            <td>$1,101 RT</td>
+          </tr>
+          <tr>
+            <td>Delta via DTW<br />FLL 4:38p → YUL 11:27p</td>
+            <td>First on Delta Connection</td>
+            <td>Arrives late; connection both ways; CRJ first, not a wide cabin.</td>
+            <td>$1,078 RT</td>
+          </tr>
+          <tr>
+            <td>Air Canada from MIA<br />7:55a nonstop to YUL</td>
+            <td>Mainline Business, $1,374 RT</td>
+            <td>Wrong airport, dawn departure. Only worth it if you would rather start from Miami.</td>
+            <td>$1,374 RT</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="muted" style="margin-top:0.9rem">Porter / Air Transat have no useful nonstop on Tuesday Sep 8. Do not connect for this overnight.</p>
+    </div>
+
+    <h2>How to finish the booking</h2>
+    <div class="card">
+      <ol class="muted" style="padding-left:1.2rem">
+        <li>Open Air Canada with the button above (FLL–YUL, Sep 8 / Sep 9, 1 adult).</li>
+        <li>Select AC1605 12:40p outbound. Choose Premium Rouge if you want the 2-2 recliner; otherwise Standard + a Preferred/exit-row seat.</li>
+        <li>Select AC1008 6:05p return. Choose Business Class on the A220.</li>
+        <li>US citizens need a valid passport. Canada does not require an eTA for US passport holders.</li>
+      </ol>
+    </div>
+
+    <footer>
+      Sources: Google Flights live search Aug 18, 2026; Air Canada published Florida schedule (AC1605 / AC1008).
+      GitHub Pages: masonre-artifacts.
+    </footer>
+  </div>
+</body>
+</html>
