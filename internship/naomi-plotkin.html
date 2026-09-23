@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>masonre — Internship, Naomi Plotkin</title>
+<style>
+  @page {
+    size: letter;
+    margin: 0.62in 0.68in 0.7in;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #f4f0e8;
+    color: #1c1a17;
+    font-family: Inter, "Liberation Sans", sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.45;
+  }
+  body { padding: 0; }
+  h1, h2, h3, .serif { font-family: "Liberation Serif", "Noto Serif", serif; font-weight: 400; }
+  h1 { font-size: 42pt; line-height: 0.95; margin: 0 0 12px; letter-spacing: -0.02em; }
+  h2 {
+    font-size: 22pt;
+    line-height: 1.1;
+    margin: 0 0 10px;
+    letter-spacing: -0.015em;
+  }
+  h3 {
+    font-size: 13.5pt;
+    margin: 16px 0 4px;
+    letter-spacing: -0.01em;
+  }
+  p { margin: 0 0 8px; }
+  a { color: inherit; }
+  .kicker {
+    font-family: Inter, sans-serif;
+    font-size: 8.5pt;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #8f3d2b;
+    margin: 0 0 8px;
+    font-weight: 600;
+  }
+  .rule { border: 0; border-top: 1px solid #1c1a17; margin: 14px 0; }
+  .thin { border: 0; border-top: 1px solid #d8d0c4; margin: 12px 0; }
+  .page { break-after: page; page-break-after: always; }
+  .keep { break-inside: avoid; page-break-inside: avoid; }
+  ul { margin: 4px 0 10px; padding-left: 16px; }
+  li { margin: 0 0 4px; }
+  .muted { color: #5e584f; }
+  .small { font-size: 9pt; line-height: 1.4; }
+  .cover {
+    min-height: 9.6in;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .cover-top { margin-top: 0.4in; }
+  .wordmark {
+    font-family: Inter, sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    font-size: 14pt;
+  }
+  .cover h1 { font-size: 58pt; margin-top: 28px; }
+  .cover .who { font-size: 18pt; margin-top: 18px; }
+  .meta { margin-top: 22px; font-size: 11pt; }
+  .meta div { margin-bottom: 2px; }
+  .draft {
+    display: inline-block;
+    border: 1px solid #8f3d2b;
+    color: #8f3d2b;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-size: 8pt;
+    font-weight: 600;
+    padding: 3px 7px;
+    margin-bottom: 18px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8px 0 12px;
+    font-size: 8.6pt;
+    line-height: 1.35;
+  }
+  th {
+    text-align: left;
+    font-size: 7.4pt;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    border-bottom: 1.5px solid #1c1a17;
+    padding: 0 8px 5px 0;
+    vertical-align: bottom;
+  }
+  tr { break-inside: avoid; page-break-inside: avoid; }
+  td {
+    vertical-align: top;
+    border-bottom: 1px solid #e3dbd0;
+    padding: 5px 8px 5px 0;
+  }
+  td.track { font-weight: 600; width: 18%; }
+  .two {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 22px;
+  }
+  .term { break-inside: avoid; page-break-inside: avoid; margin-bottom: 7px; }
+  .term strong { font-weight: 600; }
+  .step-num {
+    font-family: "Liberation Serif", serif;
+    font-size: 20pt;
+    color: #8f3d2b;
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+  .person { margin-bottom: 9px; }
+  .person strong { font-weight: 600; }
+  ol.steps { margin: 0; padding: 0; list-style: none; }
+  ol.steps > li { margin: 0 0 12px; break-inside: avoid; page-break-inside: avoid; }
+</style>
+</head>
+<body>
+
+<section class="page cover">
+  <div class="cover-top">
+    <div class="wordmark">masonre</div>
+    <div class="draft">Draft</div>
+    <div class="kicker">New York internship</div>
+    <h1>Read this first.</h1>
+    <p class="who serif">Naomi Plotkin</p>
+    <div class="meta">
+      <div>Touro, New York · Management, focus in Marketing</div>
+      <div>October 6, 2026 – May 2027</div>
+      <div>New York office, and the street when the work is there</div>
+    </div>
+  </div>
+  <div class="small muted">
+    Part I is the description for Touro. Part II is the book. Supervisor: David Abrams, Founder &amp; CEO.
+  </div>
+</section>
+
+<section>
+  <div class="kicker">How to use this</div>
+  <h2>Two documents in one.</h2>
+  <p>Part I is written so you can hand it to Touro for credit. It states the role, the schedule, who supervises you, and the benchmarks we will actually use.</p>
+  <p>Part II is yours. Read it before October 6. After that, keep it open. The glossary is for downtime. The studio films and the trades are the other half of the job, on the days you are not in the office.</p>
+  <p>Your channel is Slack. That is how we talk to you, assign work, and take your notes. You will not have your own login for email, CoStar, LoopNet, Salesforce, or GrowthFactor. You learn those by sitting next to the person who has the license.</p>
+  <hr class="rule">
+  <p>The case studies live in the brand book. Read it with this, not instead of it.</p>
+  <p><a href="https://masonre.com/wp-content/uploads/2026/09/masonre-Brand-Book.pdf">masonre.com/wp-content/uploads/2026/09/masonre-Brand-Book.pdf</a></p>
+  <p class="small muted">Landlord experience first, then tenant experience. Capital markets is the short section after those two. Your sit-down with Elie is how that section becomes real.</p>
+</section>
+
+<section>
+  <div class="kicker">Part I · For Touro</div>
+  <h2>Internship description</h2>
+  <p class="small muted">Host: masonre, New York. Intern: Naomi Plotkin. Prepared so she can submit it for academic credit.</p>
+
+  <h3>Position overview</h3>
+  <p>The intern will train inside a retail real estate brokerage and advisory firm. masonre represents landlords and brands in New York, Miami, and Los Angeles. The work is one lifecycle: understand a building, decide who belongs in it, find that brand, and communicate the opportunity.</p>
+  <p>Naomi is a Management student at Touro in New York, with a focus in Marketing. The internship is built around that focus. She will learn how the firm tells a building’s story, how a market is read on foot and in data, and how a brand is found and approached. The aim is a working knowledge of the business, and a clear view of whether this is the career she wants.</p>
+  <p>She is based in New York for the full term. She works from the New York office and in the field. Florida is a market she will study, and a place she may sit with the team when she is in Hollywood. It is not a second training site.</p>
+
+  <h3>Schedule</h3>
+  <p>October 6, 2026 through May 2027. Generally two to three days a week, in the office and on the street as the work requires. Days are set with Jeff Jacobson around live assignments, tours, and meetings. Reading, the glossary, studio films, and the trades fill the remaining time.</p>
+
+  <h3>Supervision</h3>
+  <p>David Abrams, Founder &amp; CEO, is the supervisor for the full term. David directs the plan, reviews the benchmarks, and holds the conversation in May about what she has learned and whether she wants to continue in the field.</p>
+  <p>Jeff Jacobson, Director, is her day-to-day lead in the New York office. She also trains with Vanessa Chiulli (brand, marketing, and the leasing brochure), Brandon Miller (the retailer), Shane Walsh (film), Elie Mansdorf (capital markets), and Eliot Goldschmidt (CoStar, when she is in Hollywood). Rachael, based in South Beach, joins the October 13–14 onboarding in New York.</p>
+  <p class="small">Supervisor contact: David Abrams, david@masonre.com, 212.222.1496. On-site lead: Jeff Jacobson, jeff@masonre.com.</p>
+
+  <h3>Responsibilities</h3>
+  <ul>
+    <li>Learn the firm’s vocabulary and use it correctly in conversation and in writing.</li>
+    <li>Read the brand book and be able to explain a landlord assignment and a tenant assignment in plain language.</li>
+    <li>Walk retail corridors with the team and record what is open, what just leased, and who the neighbors are.</li>
+    <li>Sit with the team on GrowthFactor, CoStar, and LoopNet. CoStar is how brokers see the market. LoopNet is how tenants see a listing.</li>
+    <li>Learn how a leasing brochure is built: the story, the photographs, the plan, and the tenant the building is for.</li>
+    <li>Help look for brands that fit a specific building or a specific rollout.</li>
+    <li>Outline an email drip. She does not send client email.</li>
+    <li>Write and then perform a short film about the internship. She is on camera. Shane Walsh produces. The team shoots.</li>
+    <li>Read the trades each week and brief one trend: what happened, and why it matters to a landlord or a brand.</li>
+    <li>Sit with capital markets to see how a building is chosen and bought, not only how it is leased.</li>
+  </ul>
+
+  <h3>Skills and experience gained</h3>
+  <ul>
+    <li>Retail real estate vocabulary and the difference between landlord strategy and tenant strategy.</li>
+    <li>How a market is canvassed on foot, then checked in GrowthFactor, CoStar, and LoopNet.</li>
+    <li>How a professional leasing story is written and designed.</li>
+    <li>How a brand is researched and how outreach is sequenced.</li>
+    <li>How to read trade press for trend, not for gossip, across real estate, fashion, and food.</li>
+    <li>How to write a 45–60 second script and deliver it on camera.</li>
+    <li>A supervised view of capital markets: what makes a retail-driven building worth buying.</li>
+    <li>A direct answer, by May 2027, on whether this work is the career she wants.</li>
+  </ul>
+</section>
+
+<section class="page" style="break-before: page; page-break-before: always;">
+  <div class="kicker">Part I · Benchmarks</div>
+  <h2>What success is.</h2>
+  <p>If the term goes to plan, by May 2027 Naomi can do four things without a script in her lap. She can explain who masonre is and what it does. She can explain her role in that work. She can walk a block and say what is missing. She can say whether she wants this career.</p>
+  <p>Progress is reviewed against the table below. David Abrams reviews it with her at the end of October, at the end of February, and in May. Jeff Jacobson sees the weekly work in Slack as it happens.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Track</th>
+        <th>End of October 2026</th>
+        <th>End of February 2027</th>
+        <th>May 2027</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="track">The firm</td>
+        <td>Has read this book and the brand book. Can say who masonre is in a few sentences.</td>
+        <td>Can tell a landlord story and a tenant story from the brand book without reading them off the page.</td>
+        <td>Can give the one-minute version on camera: who we are, what we do, and what the intern does.</td>
+      </tr>
+      <tr>
+        <td class="track">Vocabulary</td>
+        <td>Uses the glossary in downtime. Can define the core deal and rent terms correctly.</td>
+        <td>Uses the terms in her own notes and in conversation with Jeff.</td>
+        <td>A teammate can hand her a paragraph from a brochure or a trade story and she knows every word that matters.</td>
+      </tr>
+      <tr>
+        <td class="track">Landlord strategy</td>
+        <td>Has started walking with Jeff. Can describe what “merchandising a building” means.</td>
+        <td>Can write, for one building she has walked, who the landlord is trying to attract and why.</td>
+        <td>Can stand on a block and connect what she sees to a strategy, not only to a vacant storefront.</td>
+      </tr>
+      <tr>
+        <td class="track">Brands</td>
+        <td>Knows the difference between representing the building and representing the brand.</td>
+        <td>Has sat with Brandon on how a retailer chooses a street. Has a practice list of brands for one real corridor.</td>
+        <td>Can explain why a brand fits a building, using the customer, the neighbors, and the rent, not a logo.</td>
+      </tr>
+      <tr>
+        <td class="track">The brochure</td>
+        <td>Has seen a finished masonre brochure and can name its parts.</td>
+        <td>Has sat with Vanessa through the making of one. Can say what the brochure is arguing.</td>
+        <td>Can brief a page: the story, the plan, and who it is for.</td>
+      </tr>
+      <tr>
+        <td class="track">Mapping</td>
+        <td>Can canvass a block on foot: open, leased, dark, neighbor.</td>
+        <td>Has sat in on GrowthFactor, CoStar, and LoopNet. Knows which audience each one speaks to.</td>
+        <td>Can combine a walk with what the screens show, and say where they disagree.</td>
+      </tr>
+      <tr>
+        <td class="track">Outreach</td>
+        <td>Understands that a drip is a sequence with one ask.</td>
+        <td>Has outlined one drip in Slack. She has not sent it.</td>
+        <td>Can defend the order of that sequence: why this person, why this proof, why this ask.</td>
+      </tr>
+      <tr>
+        <td class="track">On camera</td>
+        <td>Delivers a 45–60 second script: who we are, what we do, what her role is.</td>
+        <td>The script has been revised with Shane and Jeff. A shoot is scheduled.</td>
+        <td>The first film in “Life as an intern” is finished. She is the person on camera.</td>
+      </tr>
+      <tr>
+        <td class="track">Trends</td>
+        <td>Knows the reading list. Has sent her first weekly note.</td>
+        <td>A weekly Slack note to Jeff: one story, why it matters, what masonre would do with it.</td>
+        <td>Can brief a trend out loud and tie it to a landlord or a brand we would actually call.</td>
+      </tr>
+      <tr>
+        <td class="track">Capital markets</td>
+        <td>Has read the capital markets pages in the brand book.</td>
+        <td>Has sat with Elie on how masonre looks at a building to buy.</td>
+        <td>Can explain how leasing strategy and an acquisition thesis use the same streets.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="small muted">The October benchmark that cannot slip: the script. Everything else in the first month supports it. She should not be on camera until the words are right.</p>
+</section>
+
+<section class="page">
+  <div class="kicker">Part II · The book</div>
+  <h2>Who we are.</h2>
+  <p>masonre is a brokerage and advisory firm. We work in New York, Miami, and Los Angeles. We lead the growth of trophy retail: the buildings, and the brands that make those buildings matter.</p>
+  <p>The name is masonry. Brick, mortar, craft, a foundation that holds. The standard we use on ourselves is the same one we will use on you: quality over quantity. Fewer things, done properly. Partnership ahead of the transaction. Hustle, and very little ego.</p>
+  <p>We do two jobs that look different and are the same skill.</p>
+  <p><strong>For a landlord,</strong> we decide who the building is for, merchandise the space, tell that story, and lease it. Sometimes we are in the work before the landlord buys. Sometimes the retail has been dark for years and the job is to change what the street thinks the building is.</p>
+  <p><strong>For a brand,</strong> we learn the customer, pick the streets, and negotiate the stores. A good assignment is a rollout, not a single lucky corner.</p>
+  <p>Read those two ideas in the brand book until you can say them with examples. Start here:</p>
+  <ul>
+    <li><strong>1140 Third Avenue, Upper East Side.</strong> We broke a large retail floor into smaller spaces, put a fitness studio in the lower level off a new 67th Street entrance, and leased Alo, Credo, Bondi Sushi, Madison Reed, Solidcore, and Aesop. Solidcore’s number one store in the chain.</li>
+    <li><strong>75 Kenmare, Nolita.</strong> New retail under a residential building. We merchandised it, leased it, and the retail condo sold.</li>
+    <li><strong>101 William, Financial District.</strong> Retail vacant for nearly a decade. The plan was one best-in-class gym for the offices above and the neighborhood. Club Studio, 36,000 square feet, their first New York gym.</li>
+    <li><strong>Oaklyn, Oakland Park.</strong> The brochure was written before the shovel. It had to show a campus, not a list of square feet. Pure Barre, Bondi, Pause, and a set of local and national operators followed.</li>
+    <li><strong>Alo.</strong> A lease on the Upper East Side when the brand had eight stores. Then a South Florida rollout, and the purchase of 100 Lincoln Road for a flagship, an office, and a private gym.</li>
+    <li><strong>Boggi, Peserico, Bondi, SunLife, Reforming Pilates.</strong> Tenant work. Different customers, same muscle: where they should be, and in what order.</li>
+  </ul>
+  <p>You are allowed to know these. They are the firm’s public record. If you retell one, retell it accurately, and do not add numbers you did not read.</p>
+</section>
+
+<section>
+  <div class="kicker">Part II</div>
+  <h2>Your role.</h2>
+  <p>You are here to learn the business, the way we see a market, who our clients are, and how a client gets found. At the end you should know whether you want this work. That answer is a real outcome of the internship, not a mood we check on the last day.</p>
+  <p>You will not have a book of business, a license, or a login. You will have Jeff most days you are in, a different teammate when the subject changes, and Slack. You observe, you walk, you write, you ask. You do not speak for masonre, and you do not write to a landlord, a brand, or another broker as if you do.</p>
+  <p>The first month has one piece of finished work: a script, 45 to 60 seconds, in your voice. It has to carry three ideas. Who masonre is. What we do. What you are here to do. Shane will produce the film. Jeff wants to shoot, and other people on the team will get behind a camera. You are the person in the frame. The series is called Life as an intern. The script comes first.</p>
+  <h3>Before October 6</h3>
+  <ul>
+    <li>Read Part II of this book once, all the way through.</li>
+    <li>Read the brand book. Landlord, then tenant, then capital markets.</li>
+    <li>Start the glossary. You will not memorize it in a weekend. You will reread it.</li>
+    <li>Watch the studio films on the list at the back.</li>
+    <li>When Slack is open, say you are in.</li>
+  </ul>
+  <h3>October 13 and 14</h3>
+  <p>Onboarding is in person at the New York office. Rachael will be in from South Beach. Jeff will be there. Brandon and Elie will join if they are in the city. The point of those two days is that you meet the people in the same room, hear the plan from more than one voice, and leave knowing who to go to for what.</p>
+  <p>Rachael is new to the team and based in South Beach. She will be in New York on and off. October 13–14 is the introduction. Dates can move if her travel moves. Jeff will tell you in Slack if they do.</p>
+</section>
+
+<section>
+  <div class="kicker">Part II · The team</div>
+  <h2>Learn from all of them.</h2>
+  <p>Everyone here has a lane. Your job in the first months is to spend real time in each lane, not to pick a favorite in week one.</p>
+  <div class="person"><strong>David Abrams, Founder &amp; CEO.</strong> Your supervisor. He sets the standard and reviews the benchmarks. The May conversation about whether this is your work is with him.</div>
+  <div class="person"><strong>Jeff Jacobson, Director.</strong> Your day-to-day in New York. He is in the office the most. He came up as a residential broker, he knows the city as a place people live, and he is the person to learn food from: what a restaurant needs from a space, and why a block works at night as well as at noon. Walk with him.</div>
+  <div class="person"><strong>Vanessa Chiulli, Chief Marketing Officer.</strong> Brand, marketing, and design. She is how a leasing brochure actually gets made. Sit with her before you have an opinion about one.</div>
+  <div class="person"><strong>Brandon Miller, Director.</strong> He came from the retailer side. Ask him how a brand decides, what a store has to do for the customer, and why a corner that looks good on a map fails the operator.</div>
+  <div class="person"><strong>Shane Walsh, Producer.</strong> He produces Life as an intern. You write and you perform. He builds the film. Jeff and others shoot. Nothing is filmed off a draft you are still unhappy with.</div>
+  <div class="person"><strong>Elie Mansdorf, Capital Markets.</strong> He shows you the other half of the lifecycle: how we look at a building to buy, not only to lease. This sits beside the eight steps below. Do not skip it.</div>
+  <div class="person"><strong>Eliot Goldschmidt, Director.</strong> When you are in Hollywood, you sit with Eliot. He teaches you CoStar. The Florida buildings in the brand book — Design District, Oaklyn, Wynwood, Lincoln Road — are the ones to have read before you do.</div>
+  <div class="person"><strong>Rachael.</strong> Based in South Beach, in New York October 13–14 for your onboarding, and in the city at other points during the term. Meet her then. You will see how someone new learns the same firm from the Florida side.</div>
+  <div class="person"><strong>Dena Abrams, Chief Philanthropy Officer.</strong> When the schedule allows, hear how she thinks about the neighborhood around a deal. It is part of the firm, and it is part of a full introduction.</div>
+</section>
+
+<section>
+  <div class="kicker">Part II · The path</div>
+  <h2>Eight steps, in order.</h2>
+  <p>You will touch all eight during the year. The order is the order you should learn them. October is step 1, the brand book, and the script. Do not jump to filming, and do not jump to outreach, before you can say what the firm does.</p>
+
+  <ol class="steps">
+    <li>
+      <div class="step-num">01</div>
+      <h3>Real estate vocabulary</h3>
+      <p>The glossary at the back is the list. Read it on the subway, between classes, whenever you would otherwise scroll. In October, mark every term you cannot explain out loud. Ask Jeff the ones that still feel slippery after you have tried. By February the words should show up in your Slack notes without you reaching for this book.</p>
+    </li>
+    <li>
+      <div class="step-num">02</div>
+      <h3>Landlord strategy</h3>
+      <p>A landlord assignment starts before a lease draft. Someone has to decide who the building is for. At 1140 Third that meant smaller stores and a fitness use downstairs. At 101 William it meant one gym strong enough to wake up a retail box that had sat empty. At Oaklyn the brochure had to describe a campus before the building existed.</p>
+      <p>With Jeff, pick one building from the brand book and one block you can actually walk. Write half a page: who lives or works here, what is already on the street, what is missing, and what you would refuse even if they could pay the rent. That is strategy. Square footage is not.</p>
+    </li>
+    <li>
+      <div class="step-num">03</div>
+      <h3>Discovering brands</h3>
+      <p>Agency work runs on a list of the right names, kept current. Some of those names are for a building we represent. Some are brands we represent, looking for their next street.</p>
+      <p>Brandon is the person who will ruin a lazy list. A logo you like is not a reason. He will make you say who the customer is, what they already buy on that block, and whether the operator can survive the rent. Your practice work is a short list for one corridor you have walked. It stays inside the firm until someone else decides it is ready to use.</p>
+    </li>
+    <li>
+      <div class="step-num">04</div>
+      <h3>How we communicate — the leasing brochure</h3>
+      <p>The brochure is the argument for the building. It is not a flyer with a floor plan dropped on it. Vanessa will show you how a page earns its place: the line of the neighborhood, the photographs, the plan, the tenant we want, and the thing we are willing to leave out.</p>
+      <p>Your job is to learn the sequence. Story, then proof, then the ask. When you can describe a brochure that way, you are ready to talk about outreach. Not before.</p>
+    </li>
+    <li>
+      <div class="step-num">05</div>
+      <h3>Mapping — walking, GrowthFactor, and CoStar</h3>
+      <p>We canvass. That means feet first. Walk the avenue and the side streets. Note what is open, what is papered, what went dark, who the neighbors are, and what the ground floor is actually doing at 11 a.m. and at 7 p.m. Food is a different business after dark. Jeff will make you see that.</p>
+      <p>Then the screens, over someone’s shoulder. GrowthFactor tells you who visits, where they come from, and what else they go to. CoStar is the broker record: availabilities, comps, ownership, the listing other brokers see. LoopNet is the tenant-facing board. When we post an exclusive, CoStar speaks to brokers and LoopNet speaks to tenants. Same space, two audiences. You do not get a seat of your own. You learn the questions to ask while a teammate drives.</p>
+      <p>In Hollywood, that CoStar session is with Eliot. Come having already read the Florida projects in the brand book.</p>
+    </li>
+    <li>
+      <div class="step-num">06</div>
+      <h3>Email drip campaigns</h3>
+      <p>A drip is a short sequence to one kind of reader, with one reason for writing and one thing we want them to do. It is not a newsletter, and it is not a blast.</p>
+      <p>You will outline one. Who it is for. The three notes, in order. What proof sits in each note. What the ask is on the last note. You will put that outline in Slack. You will not send it. You do not have an email seat, and a draft is not a campaign until the person who owns the relationship says it is.</p>
+    </li>
+    <li>
+      <div class="step-num">07</div>
+      <h3>Life as an intern</h3>
+      <p>You are the subject. Shane produces. Jeff wants more of the team filming, so treat the shoot as a team job, not a favor from one person.</p>
+      <p>October deliverable, due by October 31: the script, 45 to 60 seconds when read aloud at a normal pace. Time it. Structure it like this.</p>
+      <ul>
+        <li>One or two sentences: who masonre is.</li>
+        <li>One or two sentences: what we do for a landlord and for a brand. Use a real example from the brand book if it helps, and keep it accurate.</li>
+        <li>One or two sentences: what you are here to learn between now and May, and what you will have done if the internship works.</li>
+      </ul>
+      <p>Read it to Jeff before you call it done. Shane will tell you what a camera cannot carry. We shoot after the words are settled, not as a way to find the words.</p>
+    </li>
+    <li>
+      <div class="step-num">08</div>
+      <h3>Reading, so you learn the trends</h3>
+      <p>Once a week, on a day you are working, pick one story and send Jeff five lines in Slack. What happened. Who it affects. Whether it matters to a landlord, a brand, or both. What masonre would do with it, even if the answer is nothing.</p>
+      <p>Read these:</p>
+      <ul>
+        <li>The Real Deal, Commercial Observer, and Bisnow, for the deals and the markets.</li>
+        <li>Crain’s New York, for the city around the deals.</li>
+        <li>WWD and The Business of Fashion, for the brands that become tenants.</li>
+        <li>Eater NY and Grub Street, for restaurants, which are a leasing specialty of their own.</li>
+      </ul>
+      <p>If a better food or fashion source earns a place on the list, Jeff will add it. The habit matters more than the logo on the site.</p>
+    </li>
+  </ol>
+
+  <h3>Beside the eight: capital markets, with Elie</h3>
+  <p>Leasing fills a building. Capital markets asks whether the building should be owned, and by whom. Elie will walk you through how masonre looks at a retail-driven asset: the street, the tenant mix, the rent, and whether the basis makes sense. You are not building a model. You are learning to see that a lease comp and a purchase thesis are the same block of sidewalk, read for two decisions.</p>
+  <p>Have the capital markets pages of the brand book read before you sit with him. One session is the February benchmark. More than one is better if his calendar allows.</p>
+</section>
+
+<section class="page">
+  <div class="kicker">Part II · October</div>
+  <h2>The first month, on one page.</h2>
+  <ul>
+    <li>October 6. You start. Slack is live. You know who Jeff is and how to reach him.</li>
+    <li>October 13–14. Onboarding at the New York office with Jeff and Rachael. Brandon and Elie if they are around.</li>
+    <li>Walk at least once with Jeff before the month ends.</li>
+    <li>Brand book: landlord section and tenant section, finished.</li>
+    <li>Studio films on the list, watched.</li>
+    <li>Glossary started, with the terms you miss marked.</li>
+    <li>First trend note in Slack.</li>
+    <li>October 31. The 45–60 second script, timed, and read to Jeff.</li>
+  </ul>
+  <p>David reviews October against the first column of the benchmark table. If the script is thin, we fix the script before we add work.</p>
+
+  <h3>From November to May</h3>
+  <p><strong>November.</strong> Landlord strategy with Jeff, on a building you can walk. First session with Vanessa on a brochure.</p>
+  <p><strong>December.</strong> Brandon, and a practice brand list for one corridor. Still inside the firm.</p>
+  <p><strong>January.</strong> Mapping. Walking notes, then GrowthFactor, CoStar, and LoopNet over a shoulder. If you are in Hollywood, that CoStar teaching is with Eliot.</p>
+  <p><strong>February.</strong> One drip, outlined in Slack, not sent. A session with Elie. End-of-February review with David.</p>
+  <p><strong>March.</strong> You can brief a trend out loud. The script is in revision with Shane.</p>
+  <p><strong>April and May.</strong> Shoot Life as an intern. Finish the first film. The May review is the benchmarks in the last column, plus your own answer: do you want this work.</p>
+  <p class="small muted">The months can slide if a live assignment is the better teacher that week. The benchmarks do not slide. Jeff will say so in Slack when the week changes.</p>
+</section>
+
+<section>
+  <div class="kicker">Part II · Glossary</div>
+  <h2>Words to keep rereading.</h2>
+  <p class="small muted">Retail brokerage, the way we talk. If a definition fights what Jeff tells you on a live deal, the live deal wins, and you update your notes.</p>
+
+  <h3>The people</h3>
+  <div class="two">
+    <div class="term"><strong>Landlord.</strong> The owner. We merchandise and lease their retail.</div>
+    <div class="term"><strong>Tenant.</strong> The brand or operator who will occupy the space.</div>
+    <div class="term"><strong>Exclusive.</strong> One firm is hired to represent the space or the assignment. We then have something to post and to stand behind.</div>
+    <div class="term"><strong>Co-broker.</strong> Another broker in the deal. Know which side they are on before you repeat anything they say.</div>
+    <div class="term"><strong>Credit.</strong> Shorthand for a tenant a landlord believes can pay. A famous name and a strong credit are not always the same thing.</div>
+  </div>
+
+  <h3>The space</h3>
+  <div class="two">
+    <div class="term"><strong>Frontage.</strong> The width on the street. In retail, width is often worth more than depth.</div>
+    <div class="term"><strong>Inline.</strong> A store in the run of the block, not a corner and not a pad sitting alone.</div>
+    <div class="term"><strong>Corner.</strong> Two frontages. Usually the space everyone asks for, and prices that way.</div>
+    <div class="term"><strong>Flagship.</strong> The store that has to represent the brand, not just ring the register.</div>
+    <div class="term"><strong>Second generation.</strong> A space another tenant already built. Kitchens, floors, and HVAC may be the opportunity.</div>
+    <div class="term"><strong>White box / vanilla shell.</strong> Empty, finished enough to start from, without the last tenant’s business built in.</div>
+    <div class="term"><strong>Dark.</strong> Closed. A dark store can still be under lease. Ask.</div>
+    <div class="term"><strong>Divisible / demise.</strong> Cutting one space into more than one. 1140 Third is the example in our book.</div>
+    <div class="term"><strong>Lower level.</strong> Basement or concourse. It leases when it has its own reason to exist, often its own entrance.</div>
+    <div class="term"><strong>Retail condo.</strong> The retail owned separately from the apartments or the office above it. It can be leased, and it can be sold.</div>
+  </div>
+
+  <h3>The rent</h3>
+  <div class="two">
+    <div class="term"><strong>PSF.</strong> Per square foot, almost always per year in the way we quote rent.</div>
+    <div class="term"><strong>Asking vs. taking.</strong> What the landlord publishes, and what actually gets signed. Believe comps of signed deals first.</div>
+    <div class="term"><strong>NNN / triple net.</strong> Tenant pays rent plus taxes, insurance, and common-area costs. Know what “net” is net of.</div>
+    <div class="term"><strong>Modified gross.</strong> A middle form. Some expenses sit with the landlord, some with the tenant. Read which ones.</div>
+    <div class="term"><strong>CAM.</strong> Common area maintenance. The shared-cost bill. It changes the real rent.</div>
+    <div class="term"><strong>TI.</strong> Tenant improvement allowance. Landlord money toward the buildout. It is part of the deal, not a gift beside it.</div>
+    <div class="term"><strong>Free rent.</strong> Months of occupancy before rent starts. It is a concession with a cost.</div>
+    <div class="term"><strong>Escalation.</strong> How the rent grows. A percentage a year, or bumps on a schedule.</div>
+    <div class="term"><strong>Percentage rent.</strong> Extra rent as a share of sales, usually after a breakpoint. Common in retail, easy to misunderstand.</div>
+    <div class="term"><strong>Term.</strong> How long the lease runs.</div>
+    <div class="term"><strong>Possession.</strong> When the tenant can take the space.</div>
+    <div class="term"><strong>Rent commencement.</strong> When rent starts. It is often not the possession date.</div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="kicker">Glossary, continued</div>
+  <h3>The deal</h3>
+  <div class="two">
+    <div class="term"><strong>Canvass.</strong> Walking the market and calling on it. The job before the screen.</div>
+    <div class="term"><strong>Availability.</strong> A space that can be leased. Confirm it. Listings go stale.</div>
+    <div class="term"><strong>Comp.</strong> A comparable lease or sale. A comp without the concessions is half a fact.</div>
+    <div class="term"><strong>LOI.</strong> Letter of intent. The business terms, before the lease is drafted.</div>
+    <div class="term"><strong>Lease out.</strong> The deal is far enough that lawyers are papering it. Not the same as signed.</div>
+    <div class="term"><strong>Use clause.</strong> What the tenant is allowed to operate. A bakery and a restaurant are not the same use.</div>
+    <div class="term"><strong>Radius.</strong> A restriction on the tenant opening another store too close.</div>
+    <div class="term"><strong>Exclusive use.</strong> Protection against a competing use in the same building.</div>
+    <div class="term"><strong>Assignment.</strong> The tenant transfers the lease. Landlords guard this.</div>
+    <div class="term"><strong>Good guy.</strong> A New York guaranty. The guarantor can get off the hook if the tenant pays through a noticed vacancy and gives the space back. Ask Jeff to show you one in a real lease.</div>
+    <div class="term"><strong>Pro forma.</strong> The projection of rent, cost, and outcome. On a landlord job we often build one before the owner closes.</div>
+    <div class="term"><strong>Merchandising.</strong> Deciding the mix: which uses, which sizes, which names, in which order.</div>
+    <div class="term"><strong>Co-tenancy.</strong> Who sits next to whom. Fashion next to fashion is a strategy. So is a gym under apartments.</div>
+  </div>
+
+  <h3>Food, because Jeff will ask</h3>
+  <div class="two">
+    <div class="term"><strong>Venting.</strong> How cooking air leaves the building. No vent, no restaurant, unless the use does not need one.</div>
+    <div class="term"><strong>Type 1 / Type 2.</strong> Type 1 handles grease from real cooking. Type 2 handles heat and steam. The menu decides which one.</div>
+    <div class="term"><strong>Grease trap.</strong> The plumbing a cooking use often has to have. It is a deal issue, not a detail for later.</div>
+    <div class="term"><strong>Second-generation restaurant.</strong> Someone already spent the money on the kitchen. Noda, in our book, is the lesson.</div>
+  </div>
+
+  <h3>The market and the tools</h3>
+  <div class="two">
+    <div class="term"><strong>Trade area.</strong> Where the customers actually come from. Not the same as the neighborhood’s nickname.</div>
+    <div class="term"><strong>Corridor.</strong> The stretch of street that trades as one place. Madison, Lincoln Road, the Design District.</div>
+    <div class="term"><strong>Daytime vs. residential.</strong> Office workers and people who sleep there are different customers. A block can have one and not the other.</div>
+    <div class="term"><strong>CoStar.</strong> The system brokers use. Availabilities, comps, ownership. When we post an exclusive, this is the broker audience.</div>
+    <div class="term"><strong>LoopNet.</strong> Where tenants and the public see listings. Same exclusive, different reader.</div>
+    <div class="term"><strong>GrowthFactor.</strong> Visit data. Who comes, from where, and what else they frequent. We use it to test a story the walk suggested.</div>
+    <div class="term"><strong>Drip.</strong> A short, ordered series of notes to one kind of reader, with one ask.</div>
+    <div class="term"><strong>Cap rate.</strong> A price expressed as yield. You will hear it with Elie. You do not need to compute one this year. You need to know it is how buyers talk.</div>
+    <div class="term"><strong>Basis.</strong> What an owner has in the deal. It drives what rent they can accept, and whether they will sell.</div>
+    <div class="term"><strong>OM.</strong> Offering memorandum. The book for a building that is for sale. Cousin of the leasing brochure, different decision.</div>
+  </div>
+</section>
+
+<section>
+  <div class="kicker">Part II · Watch and read</div>
+  <h2>Studio, then the trades.</h2>
+  <p>masonre studio is our own record of buildings, openings, and conversations. The point of the series, in the firm’s words, is tips for landlords, tenants, and their brokers, and a next generation that knows how the work is actually done. Watch the library before you try to be in a film.</p>
+  <p>Start at <a href="https://masonre.com/studio/">masonre.com/studio</a>. Watch these first. Shane will add anything missing from this list.</p>
+  <ul>
+    <li>Alo CityPlace, West Palm Beach, grand opening</li>
+    <li>Joule House, building profile</li>
+    <li>Alo Brickell City Centre</li>
+    <li>875 Washington Street</li>
+    <li>Jonathan Bennett, full interview</li>
+    <li>Oaklyn interview</li>
+    <li>101 William and 59 Maiden</li>
+  </ul>
+  <p>While you watch, write down one decision the film is showing. A tenant choice, a street, a way of talking about the building. That note is more useful than a recap of the footage.</p>
+  <hr class="thin">
+  <p>The weekly reading list, again, so it sits next to the films:</p>
+  <ul>
+    <li>The Real Deal</li>
+    <li>Commercial Observer</li>
+    <li>Bisnow</li>
+    <li>Crain’s New York</li>
+    <li>WWD</li>
+    <li>The Business of Fashion</li>
+    <li>Eater NY</li>
+    <li>Grub Street</li>
+  </ul>
+  <p>One story. Five lines. To Jeff, in Slack. Every week you are working.</p>
+  <hr class="rule">
+  <p class="serif" style="font-size: 14pt; line-height: 1.35; margin-top: 8px;">By May you should be able to say it in a minute, on your feet. Who we are. What we do. What you did here. And whether you want to keep doing it.</p>
+  <p class="small muted" style="margin-top: 18px;">masonre · New York · Draft for Naomi Plotkin · October 6, 2026 – May 2027</p>
+</section>
+
+</body>
+</html>
