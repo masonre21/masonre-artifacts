@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QR — masonre</title>
+  <meta name="description" content="Make a scannable QR code for a masonre link, contact, or Wi-Fi network. Static codes are built in the browser and never expire." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #0c1210;
+      --panel: rgba(18, 32, 28, 0.78);
+      --line: rgba(200, 230, 71, 0.2);
+      --mist: #9eb0a6;
+      --paper: #f3f6f1;
+      --maple: #c8e647;
+      --maple-deep: #d7ef78;
+      --warn: #f0b429;
+      --danger: #e86a5c;
+      --radius: 18px;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+      --font-display: "Fraunces", Georgia, serif;
+      --font-body: "Figtree", system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-body);
+      color: var(--paper);
+      background:
+        radial-gradient(1100px 640px at 8% -12%, rgba(200, 230, 71, 0.16), transparent 55%),
+        radial-gradient(820px 520px at 100% 0%, rgba(62, 140, 120, 0.24), transparent 52%),
+        linear-gradient(165deg, #07100d 0%, #0c1210 46%, #13221c 100%);
+      background-attachment: fixed;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.32;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      mix-blend-mode: soft-light;
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      width: min(1080px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 1.25rem 0 4rem;
+    }
+
+    .brand-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 2.2rem;
+    }
+
+    .brand {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--maple);
+    }
+
+    .brand span { color: var(--paper); font-weight: 500; }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--mist);
+      text-decoration: none;
+      padding: 0.45rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+    }
+
+    .chip:hover {
+      border-color: rgba(200, 230, 71, 0.45);
+      color: var(--paper);
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 5.2rem);
+      line-height: 0.92;
+      letter-spacing: -0.045em;
+      font-weight: 700;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--maple);
+    }
+
+    .lede {
+      margin: 1rem 0 0;
+      max-width: 38rem;
+      color: var(--mist);
+      font-size: 1.08rem;
+      line-height: 1.55;
+    }
+
+    .studio {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+      gap: 1.25rem;
+      margin-top: 2rem;
+      align-items: start;
+    }
+
+    .panel, .stage {
+      border: 1px solid var(--line);
+      border-radius: calc(var(--radius) + 4px);
+      background: linear-gradient(180deg, rgba(21, 36, 30, 0.92), rgba(12, 20, 17, 0.88));
+      box-shadow: var(--shadow);
+    }
+
+    .panel { padding: 1.15rem 1.15rem 1.25rem; }
+
+    .types {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-bottom: 1rem;
+    }
+
+    .types label {
+      cursor: pointer;
+    }
+
+    .types input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .types span {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      border: 1px solid rgba(200, 230, 71, 0.22);
+      padding: 0.48rem 0.8rem;
+      color: var(--mist);
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    .types input:focus-visible + span {
+      outline: 2px solid var(--maple);
+      outline-offset: 2px;
+    }
+
+    .types input:checked + span {
+      background: var(--maple);
+      color: var(--ink);
+      border-color: var(--maple);
+    }
+
+    fieldset {
+      border: 0;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    fieldset[hidden] { display: none; }
+
+    .field label, .row label {
+      display: block;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--maple);
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+
+    input[type="text"],
+    input[type="url"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="password"],
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid rgba(200, 230, 71, 0.18);
+      background: rgba(7, 16, 13, 0.55);
+      color: var(--paper);
+      border-radius: 12px;
+      padding: 0.75rem 0.85rem;
+      font: 500 1rem/1.4 var(--font-body);
+    }
+
+    textarea { min-height: 7.5rem; resize: vertical; }
+
+    input:focus, textarea:focus, select:focus {
+      outline: 2px solid rgba(200, 230, 71, 0.55);
+      border-color: transparent;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .check {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      color: var(--mist);
+      font-size: 0.95rem;
+    }
+
+    .check input { width: 1rem; height: 1rem; accent-color: var(--maple); }
+
+    .options {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 0.75rem;
+      margin-top: 0.9rem;
+      align-items: end;
+    }
+
+    .swatches {
+      display: flex;
+      gap: 0.85rem;
+    }
+
+    .swatches label {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    input[type="color"] {
+      width: 2.6rem;
+      height: 2.6rem;
+      padding: 0;
+      border: 1px solid rgba(200, 230, 71, 0.3);
+      background: transparent;
+      border-radius: 10px;
+    }
+
+    .stage {
+      padding: 1.1rem;
+      position: sticky;
+      top: 1rem;
+    }
+
+    .sheet {
+      background: #fff;
+      color: var(--ink);
+      border-radius: 14px;
+      padding: 1rem 1rem 0.85rem;
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.7rem;
+    }
+
+    .sheet canvas {
+      width: min(100%, 320px);
+      height: auto;
+      image-rendering: pixelated;
+    }
+
+    .sheet canvas.is-empty { display: none; }
+
+    .empty {
+      margin: 0;
+      text-align: center;
+      color: #5d6b64;
+      font-size: 0.95rem;
+      line-height: 1.45;
+      max-width: 16rem;
+    }
+
+    .payload {
+      margin: 0;
+      width: 100%;
+      text-align: center;
+      font-size: 0.78rem;
+      line-height: 1.35;
+      color: #3d4a44;
+      word-break: break-word;
+    }
+
+    .meta {
+      margin: 0.75rem 0 0;
+      color: var(--mist);
+      font-size: 0.82rem;
+      min-height: 1.2em;
+    }
+
+    .status {
+      margin: 0.35rem 0 0;
+      font-size: 0.88rem;
+      line-height: 1.4;
+      min-height: 1.3em;
+    }
+
+    .status.warn { color: var(--warn); }
+    .status.bad { color: var(--danger); }
+    .status.ok { color: var(--maple-deep); }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin-top: 0.9rem;
+    }
+
+    .btn {
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      font: 600 0.92rem/1 var(--font-body);
+      border-radius: 999px;
+      padding: 0.78rem 1rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .btn-primary { background: var(--maple); color: var(--ink); }
+    .btn-primary:hover:not(:disabled) { background: var(--maple-deep); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--paper);
+      border: 1px solid rgba(200, 230, 71, 0.35);
+    }
+
+    .btn-ghost:hover:not(:disabled) { border-color: var(--maple); }
+
+    .advice {
+      margin-top: 1.5rem;
+      padding: 1.15rem 1.2rem 1.2rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .advice h2 {
+      margin: 0 0 0.4rem;
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      letter-spacing: -0.03em;
+    }
+
+    .advice p {
+      margin: 0.45rem 0 0;
+      color: var(--mist);
+      line-height: 1.55;
+    }
+
+    .advice a { color: var(--maple); }
+
+    @media (max-width: 840px) {
+      .studio, .options, .row { grid-template-columns: 1fr; }
+      .stage { position: static; }
+      .brand-bar { align-items: flex-start; flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="brand-bar">
+      <div class="brand">masonre <span>· QR</span></div>
+      <a class="chip" href="https://www.qrcode-tiger.com/payment" target="_blank" rel="noopener">Dynamic codes from $7/mo</a>
+    </header>
+
+    <section class="hero">
+      <h1>A code<br>they can <em>scan.</em></h1>
+      <p class="lede">Build a static QR code for a listing link, a contact card, or office Wi-Fi. It is drawn in this browser, so the destination is inside the code and keeps working if this page goes away.</p>
+    </section>
+
+    <div class="studio">
+      <form class="panel" id="form">
+        <div class="types" role="radiogroup" aria-label="What the code should open">
+          <label><input type="radio" name="type" value="link" checked /><span>Link</span></label>
+          <label><input type="radio" name="type" value="text" /><span>Text</span></label>
+          <label><input type="radio" name="type" value="email" /><span>Email</span></label>
+          <label><input type="radio" name="type" value="phone" /><span>Phone</span></label>
+          <label><input type="radio" name="type" value="wifi" /><span>Wi-Fi</span></label>
+          <label><input type="radio" name="type" value="contact" /><span>Contact</span></label>
+        </div>
+
+        <fieldset data-type="link">
+          <div class="field">
+            <label for="url">Website</label>
+            <input id="url" name="url" type="url" inputmode="url" placeholder="https://masonre.com" autocomplete="off" />
+          </div>
+        </fieldset>
+
+        <fieldset data-type="text" hidden>
+          <div class="field">
+            <label for="text">Text</label>
+            <textarea id="text" name="text" placeholder="Suite instructions, a door code, a short note"></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset data-type="email" hidden>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="hello@masonre.com" autocomplete="email" />
+          </div>
+          <div class="field">
+            <label for="subject">Subject</label>
+            <input id="subject" name="subject" type="text" placeholder="Tour request" />
+          </div>
+          <div class="field">
+            <label for="body">Message</label>
+            <textarea id="body" name="body" placeholder="Optional note that opens with the email"></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset data-type="phone" hidden>
+          <div class="field">
+            <label for="phone">Phone</label>
+            <input id="phone" name="phone" type="tel" placeholder="+1 212 555 0100" autocomplete="tel" />
+          </div>
+        </fieldset>
+
+        <fieldset data-type="wifi" hidden>
+          <div class="field">
+            <label for="ssid">Network name</label>
+            <input id="ssid" name="ssid" type="text" placeholder="masonre-guest" autocomplete="off" />
+          </div>
+          <div class="row">
+            <div>
+              <label for="security">Security</label>
+              <select id="security" name="security">
+                <option value="WPA" selected>WPA / WPA2</option>
+                <option value="WEP">WEP</option>
+                <option value="nopass">None</option>
+              </select>
+            </div>
+            <div>
+              <label for="wifiPassword">Password</label>
+              <input id="wifiPassword" name="password" type="text" placeholder="Network password" autocomplete="off" />
+            </div>
+          </div>
+          <label class="check"><input id="hidden" name="hidden" type="checkbox" /> Hidden network</label>
+        </fieldset>
+
+        <fieldset data-type="contact" hidden>
+          <div class="row">
+            <div>
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" placeholder="Mason RE" autocomplete="name" />
+            </div>
+            <div>
+              <label for="org">Company</label>
+              <input id="org" name="org" type="text" placeholder="masonre" autocomplete="organization" />
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label for="contactPhone">Phone</label>
+              <input id="contactPhone" name="contactPhone" type="tel" autocomplete="tel" />
+            </div>
+            <div>
+              <label for="contactEmail">Email</label>
+              <input id="contactEmail" name="contactEmail" type="email" autocomplete="email" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="site">Website</label>
+            <input id="site" name="site" type="url" placeholder="https://masonre.com" />
+          </div>
+        </fieldset>
+
+        <div class="options">
+          <div>
+            <label for="ecc">Error correction</label>
+            <select id="ecc" name="ecc">
+              <option value="L">Low · 7%</option>
+              <option value="M" selected>Medium · 15%</option>
+              <option value="Q">Quartile · 25%</option>
+              <option value="H">High · 30%</option>
+            </select>
+          </div>
+          <div>
+            <label for="scale">Export size</label>
+            <select id="scale" name="scale">
+              <option value="8">Screen</option>
+              <option value="12" selected>Print</option>
+              <option value="20">Large print</option>
+            </select>
+          </div>
+          <div class="swatches">
+            <label>Ink
+              <input id="fg" name="fg" type="color" value="#000000" />
+            </label>
+            <label>Paper
+              <input id="bg" name="bg" type="color" value="#ffffff" />
+            </label>
+          </div>
+        </div>
+      </form>
+
+      <aside class="stage">
+        <div class="sheet">
+          <p class="empty" id="empty">Enter something on the left. The code appears here.</p>
+          <canvas id="canvas" class="is-empty" width="320" height="320" aria-label="QR code preview"></canvas>
+          <p class="payload" id="payload" hidden></p>
+        </div>
+        <p class="meta" id="meta"></p>
+        <p class="status" id="status" role="status"></p>
+        <div class="actions">
+          <button class="btn btn-primary" id="png" type="button" disabled>Download PNG</button>
+          <button class="btn btn-ghost" id="svg" type="button" disabled>Download SVG</button>
+          <button class="btn btn-ghost" id="copy" type="button" disabled>Copy payload</button>
+        </div>
+      </aside>
+    </div>
+
+    <section class="advice" id="paid">
+      <h2>When a paid code is the better fit</h2>
+      <p>This page makes static codes. The link is printed into the pattern, which is what you want for a stable masonre URL. If the destination has to change after the piece is printed — a seasonal listing, a PDF that gets replaced, scan counts — use a dynamic code.</p>
+      <p><a href="https://www.qrcode-tiger.com/payment" target="_blank" rel="noopener">QR Tiger Regular</a> is the affordable plan that still sits with the better-reviewed generators: <strong>$7 per month</strong>, 12 dynamic codes, unlimited scans, and you can edit the destination later. Higher tiers are billed annually. Free dynamic codes there stop at 500 scans and show a QR Tiger popup.</p>
+    </section>
+  </div>
+
+  <script src="qrcodegen.js"></script>
+  <script>
+    const QRC = qrcodegen.QrCode;
+    const ECC = { L: QRC.Ecc.LOW, M: QRC.Ecc.MEDIUM, Q: QRC.Ecc.QUARTILE, H: QRC.Ecc.HIGH };
+    const BORDER = 4;
+
+    const form = document.getElementById("form");
+    const canvas = document.getElementById("canvas");
+    const empty = document.getElementById("empty");
+    const payloadEl = document.getElementById("payload");
+    const meta = document.getElementById("meta");
+    const status = document.getElementById("status");
+    const pngBtn = document.getElementById("png");
+    const svgBtn = document.getElementById("svg");
+    const copyBtn = document.getElementById("copy");
+
+    let current = null;
+
+    function selectedType() {
+      return form.querySelector('input[name="type"]:checked').value;
+    }
+
+    function showType(type) {
+      form.querySelectorAll("fieldset[data-type]").forEach((set) => {
+        set.hidden = set.dataset.type !== type;
+      });
+      const password = document.getElementById("wifiPassword");
+      password.disabled = document.getElementById("security").value === "nopass";
+    }
+
+    function escapeWifi(value) {
+      return value.replace(/([\\;,:"])/g, "\\$1");
+    }
+
+    function escapeVcard(value) {
+      return value.replace(/\\/g, "\\\\").replace(/\r?\n/g, "\\n").replace(/,/g, "\\,").replace(/;/g, "\\;");
+    }
+
+    function withScheme(value) {
+      const trimmed = value.trim();
+      if (!trimmed) return "";
+      if (/^[a-z][a-z0-9+.-]*:/i.test(trimmed)) return trimmed;
+      return "https://" + trimmed;
+    }
+
+    function buildPayload() {
+      const type = selectedType();
+      if (type === "link") return withScheme(document.getElementById("url").value);
+      if (type === "text") return document.getElementById("text").value.trim();
+      if (type === "email") {
+        const email = document.getElementById("email").value.trim();
+        if (!email) return "";
+        const params = new URLSearchParams();
+        const subject = document.getElementById("subject").value.trim();
+        const body = document.getElementById("body").value.trim();
+        if (subject) params.set("subject", subject);
+        if (body) params.set("body", body);
+        const query = params.toString();
+        return "mailto:" + email + (query ? "?" + query : "");
+      }
+      if (type === "phone") {
+        const phone = document.getElementById("phone").value.trim();
+        return phone ? "tel:" + phone.replace(/[^\d+]/g, "") : "";
+      }
+      if (type === "wifi") {
+        const ssid = document.getElementById("ssid").value;
+        if (!ssid.trim()) return "";
+        const security = document.getElementById("security").value;
+        const password = security === "nopass" ? "" : document.getElementById("wifiPassword").value;
+        const hidden = document.getElementById("hidden").checked;
+        return "WIFI:T:" + security + ";S:" + escapeWifi(ssid) + ";P:" + escapeWifi(password) + ";H:" + (hidden ? "true" : "false") + ";;";
+      }
+      const name = document.getElementById("name").value.trim();
+      const org = document.getElementById("org").value.trim();
+      const phone = document.getElementById("contactPhone").value.trim();
+      const email = document.getElementById("contactEmail").value.trim();
+      const site = withScheme(document.getElementById("site").value);
+      if (!name && !org && !phone && !email && !site) return "";
+      const lines = ["BEGIN:VCARD", "VERSION:3.0"];
+      if (name) {
+        lines.push("N:" + escapeVcard(name));
+        lines.push("FN:" + escapeVcard(name));
+      }
+      if (org) lines.push("ORG:" + escapeVcard(org));
+      if (phone) lines.push("TEL:" + escapeVcard(phone));
+      if (email) lines.push("EMAIL:" + escapeVcard(email));
+      if (site) lines.push("URL:" + escapeVcard(site));
+      lines.push("END:VCARD");
+      return lines.join("\n");
+    }
+
+    function contrastRatio(hexA, hexB) {
+      const channel = (hex) => {
+        const n = parseInt(hex.slice(1), 16);
+        return [((n >> 16) & 255) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255].map((v) =>
+          v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4)
+        );
+      };
+      const lum = (rgb) => 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
+      const a = lum(channel(hexA));
+      const b = lum(channel(hexB));
+      const hi = Math.max(a, b);
+      const lo = Math.min(a, b);
+      return (hi + 0.05) / (lo + 0.05);
+    }
+
+    function paint(qr, fg, bg, scale) {
+      const size = qr.size + BORDER * 2;
+      canvas.width = size * scale;
+      canvas.height = size * scale;
+      const ctx = canvas.getContext("2d");
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = fg;
+      for (let y = 0; y < qr.size; y++) {
+        for (let x = 0; x < qr.size; x++) {
+          if (qr.getModule(x, y)) ctx.fillRect((x + BORDER) * scale, (y + BORDER) * scale, scale, scale);
+        }
+      }
+    }
+
+    function toSvg(qr, fg, bg) {
+      const size = qr.size + BORDER * 2;
+      let d = "";
+      for (let y = 0; y < qr.size; y++) {
+        for (let x = 0; x < qr.size; x++) {
+          if (qr.getModule(x, y)) d += "M" + (x + BORDER) + "," + (y + BORDER) + "h1v1h-1z";
+        }
+      }
+      return '<?xml version="1.0" encoding="UTF-8"?>\n' +
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + size + " " + size + '" shape-rendering="crispEdges">\n' +
+        '<rect width="100%" height="100%" fill="' + bg + '"/>\n' +
+        '<path d="' + d + '" fill="' + fg + '"/>\n</svg>\n';
+    }
+
+    function setStatus(kind, message) {
+      status.className = "status" + (kind ? " " + kind : "");
+      status.textContent = message;
+    }
+
+    function clearCode(message, kind) {
+      current = null;
+      canvas.classList.add("is-empty");
+      empty.hidden = false;
+      empty.textContent = message || "Enter something on the left. The code appears here.";
+      payloadEl.hidden = true;
+      payloadEl.textContent = "";
+      meta.textContent = "";
+      pngBtn.disabled = true;
+      svgBtn.disabled = true;
+      copyBtn.disabled = true;
+      setStatus(kind || "", kind ? message : "");
+    }
+
+    function render() {
+      showType(selectedType());
+      const text = buildPayload();
+      if (!text) {
+        clearCode();
+        return;
+      }
+      const fg = document.getElementById("fg").value;
+      const bg = document.getElementById("bg").value;
+      const scale = Number(document.getElementById("scale").value);
+      const eccName = document.getElementById("ecc").value;
+      let qr;
+      try {
+        qr = QRC.encodeText(text, ECC[eccName]);
+      } catch (err) {
+        clearCode(err && err.message === "Data too long" ? "That is too long for one QR code. Shorten it, or drop error correction to Low." : "That content could not be encoded.", "bad");
+        return;
+      }
+      paint(qr, fg, bg, scale);
+      canvas.classList.remove("is-empty");
+      empty.hidden = true;
+      payloadEl.hidden = false;
+      payloadEl.textContent = text;
+      meta.textContent = "Version " + qr.version + " · " + qr.size + "×" + qr.size + " modules · " + text.length + " characters";
+      const ratio = contrastRatio(fg, bg);
+      if (ratio < 3) {
+        setStatus("warn", "Ink and paper are too close in color. Phones may not scan this. Use black on white for print.");
+      } else if (ratio < 4) {
+        setStatus("warn", "Contrast is thin. Black on white scans more reliably.");
+      } else {
+        setStatus("ok", "Ready to download. The destination is stored in the code itself.");
+      }
+      current = { text, qr, fg, bg };
+      pngBtn.disabled = false;
+      svgBtn.disabled = false;
+      copyBtn.disabled = false;
+    }
+
+    function download(filename, blob) {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function applyQuery() {
+      const params = new URLSearchParams(location.search);
+      const type = params.get("type");
+      if (type && form.querySelector('input[name="type"][value="' + type + '"]')) {
+        form.querySelector('input[name="type"][value="' + type + '"]').checked = true;
+      }
+      ["url", "text", "email", "subject", "body", "phone", "ssid", "security", "ecc", "scale", "fg", "bg", "name", "org", "site"].forEach((key) => {
+        const el = form.elements[key];
+        if (el && params.has(key)) el.value = params.get(key);
+      });
+      if (params.has("password")) document.getElementById("wifiPassword").value = params.get("password");
+      if (params.has("contactPhone")) document.getElementById("contactPhone").value = params.get("contactPhone");
+      if (params.has("contactEmail")) document.getElementById("contactEmail").value = params.get("contactEmail");
+      if (params.get("hidden") === "1") document.getElementById("hidden").checked = true;
+    }
+
+    form.addEventListener("input", render);
+    form.addEventListener("change", render);
+    form.addEventListener("submit", (event) => event.preventDefault());
+
+    pngBtn.addEventListener("click", () => {
+      if (!current) return;
+      canvas.toBlob((blob) => {
+        if (blob) download("masonre-qr.png", blob);
+      }, "image/png");
+    });
+
+    svgBtn.addEventListener("click", () => {
+      if (!current) return;
+      download("masonre-qr.svg", new Blob([toSvg(current.qr, current.fg, current.bg)], { type: "image/svg+xml" }));
+    });
+
+    copyBtn.addEventListener("click", async () => {
+      if (!current) return;
+      try {
+        await navigator.clipboard.writeText(current.text);
+        setStatus("ok", "Payload copied.");
+      } catch (_) {
+        setStatus("bad", "Clipboard blocked. Select the text under the code instead.");
+      }
+    });
+
+    applyQuery();
+    render();
+  </script>
+</body>
+</html>

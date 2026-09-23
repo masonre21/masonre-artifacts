@@ -30,6 +30,14 @@ https://masonre21.github.io/masonre-artifacts/link-brief.html
 
 Paste a YouTube or website URL → get a summary, product/service link, pricing, and reviews, then answer whether you want to sign up. The page also includes a Cursor Automation prompt so you can repeat the same workflow from Cursor.
 
+## QR
+
+Static QR codes for links, contacts, and Wi-Fi. Drawn in the browser:
+
+```
+https://masonre21.github.io/masonre-artifacts/qr.html
+```
+
 ## Notes
 
 - Everything in this repo is **public** — do not commit anything with client-confidential data.
