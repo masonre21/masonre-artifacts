@@ -1,576 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>masonre — Internship, Naomi Plotkin</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Naomi Plotkin · Internship</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  @page {
-    size: letter;
-    margin: 0.62in 0.68in 0.7in;
-  }
-  * { box-sizing: border-box; }
-  html, body {
-    margin: 0;
-    padding: 0;
-    background: #f4f0e8;
-    color: #1c1a17;
-    font-family: Inter, "Avenir Next", "Segoe UI", Helvetica, Arial, sans-serif;
-    font-size: 10.5pt;
-    line-height: 1.45;
-  }
-  body { padding: 0; }
-  h1, h2, h3, .serif { font-family: "Liberation Serif", Georgia, "Times New Roman", serif; font-weight: 400; }
-  h1 { font-size: 42pt; line-height: 0.95; margin: 0 0 12px; letter-spacing: -0.02em; }
-  h2 {
-    font-size: 22pt;
-    line-height: 1.1;
-    margin: 0 0 10px;
-    letter-spacing: -0.015em;
-  }
-  h3 {
-    font-size: 13.5pt;
-    margin: 16px 0 4px;
-    letter-spacing: -0.01em;
-  }
-  p { margin: 0 0 8px; }
-  a { color: inherit; }
-  .kicker {
-    font-family: Inter, sans-serif;
-    font-size: 8.5pt;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: #8f3d2b;
-    margin: 0 0 8px;
-    font-weight: 600;
-  }
-  .rule { border: 0; border-top: 1px solid #1c1a17; margin: 14px 0; }
-  .thin { border: 0; border-top: 1px solid #d8d0c4; margin: 12px 0; }
-  .page { break-after: page; page-break-after: always; }
-  .keep { break-inside: avoid; page-break-inside: avoid; }
-  ul { margin: 4px 0 10px; padding-left: 16px; }
-  li { margin: 0 0 4px; }
-  .muted { color: #5e584f; }
-  .small { font-size: 9pt; line-height: 1.4; }
-  .cover {
-    min-height: 9.6in;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  .cover-top { margin-top: 0.4in; }
-  .wordmark {
-    font-family: Inter, sans-serif;
-    font-weight: 600;
-    letter-spacing: -0.03em;
-    font-size: 14pt;
-  }
-  .cover h1 { font-size: 58pt; margin-top: 28px; }
-  .cover .who { font-size: 18pt; margin-top: 18px; }
-  .meta { margin-top: 22px; font-size: 11pt; }
-  .meta div { margin-bottom: 2px; }
-  .draft {
-    display: inline-block;
-    border: 1px solid #8f3d2b;
-    color: #8f3d2b;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    font-size: 8pt;
-    font-weight: 600;
-    padding: 3px 7px;
-    margin-bottom: 18px;
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 8px 0 12px;
-    font-size: 8.6pt;
-    line-height: 1.35;
-  }
-  th {
-    text-align: left;
-    font-size: 7.4pt;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    font-weight: 600;
-    border-bottom: 1.5px solid #1c1a17;
-    padding: 0 8px 5px 0;
-    vertical-align: bottom;
-  }
-  tr { break-inside: avoid; page-break-inside: avoid; }
-  td {
-    vertical-align: top;
-    border-bottom: 1px solid #e3dbd0;
-    padding: 5px 8px 5px 0;
-  }
-  td.track { font-weight: 600; width: 18%; }
-  .two {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px 22px;
-  }
-  .term { break-inside: avoid; page-break-inside: avoid; margin-bottom: 7px; }
-  .term strong { font-weight: 600; }
-  .step-num {
-    font-family: "Liberation Serif", serif;
-    font-size: 20pt;
-    color: #8f3d2b;
-    line-height: 1;
-    margin-bottom: 2px;
-  }
-  .person { margin-bottom: 9px; }
-  .person strong { font-weight: 600; }
-  ol.steps { margin: 0; padding: 0; list-style: none; }
-  ol.steps > li { margin: 0 0 12px; break-inside: avoid; page-break-inside: avoid; }
-  @media screen {
-    body { padding: 32px 18px 72px; }
-    body > section {
-      max-width: 760px;
-      margin: 0 auto 28px;
-      background: #fffdf9;
-      padding: 36px 40px 32px;
-    }
-    .cover { min-height: 0; display: block; }
-    .cover-top { margin-top: 0; }
-    .page { break-after: auto; page-break-after: auto; }
-    a { text-decoration: underline; text-underline-offset: 2px; }
-    h1 { font-size: 46px; }
-    .cover h1 { font-size: 56px; }
-    h2 { font-size: 32px; }
-    p, li, .person, .term { font-size: 16.5px; line-height: 1.5; }
-    table { font-size: 13.5px; }
-  }
-  @media screen and (max-width: 720px) {
-    body { padding: 0 0 48px; }
-    body > section { padding: 28px 18px 24px; margin-bottom: 12px; }
-    .cover h1 { font-size: 42px; }
-    h2 { font-size: 28px; }
-    .two { grid-template-columns: 1fr; }
-    table { display: block; overflow-x: auto; }
-  }
+  :root{--teal:#004540;--teal-lt:#0F9187;--gray:#1A1A19;--hair:#D9DED9;--muted:#6E7370;--wash:#F4F7F6}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Work Sans",system-ui,sans-serif;background:var(--wash);color:var(--gray);
+    min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+  .gate{background:#fff;border-top:3px solid var(--teal);box-shadow:0 18px 50px rgba(0,0,0,.12);
+    max-width:400px;width:100%;padding:40px 38px 34px;text-align:center}
+  .eyebrow{color:var(--teal-lt);font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase}
+  h1{font-weight:300;font-size:26px;color:var(--teal);margin:10px 0 4px}
+  p.hint{font-size:12.5px;color:var(--muted);margin-bottom:22px}
+  input{width:100%;padding:12px 14px;font:inherit;font-size:15px;border:1px solid var(--hair);
+    outline:none;text-align:center;letter-spacing:.08em}
+  input:focus{border-color:var(--teal-lt)}
+  button{width:100%;margin-top:12px;padding:12px;font:inherit;font-size:13px;font-weight:600;
+    letter-spacing:.06em;background:var(--teal);color:#fff;border:none;cursor:pointer}
+  button:hover{background:var(--teal-lt)}
+  button:disabled{background:var(--muted);cursor:wait}
+  .err{color:#A33;font-size:12.5px;margin-top:12px;min-height:18px}
+  .wordmark{margin-top:26px;font-weight:700;font-size:13px;color:var(--teal)}
 </style>
 </head>
 <body>
-
-<section class="page cover">
-  <div class="cover-top">
-    <div class="wordmark">masonre</div>
-    <div class="kicker">New York internship</div>
-    <h1>Read this first.</h1>
-    <p class="who serif">Naomi Plotkin</p>
-    <div class="meta">
-      <div>Touro, New York · Management, focus in Marketing</div>
-      <div>October 6, 2026 – May 2027</div>
-      <div>New York office, and the street when the work is there</div>
-    </div>
-  </div>
-  <div class="small muted">
-    Part I is the description for Touro. Part II is the book. Supervisor: David Abrams, Founder &amp; CEO.
-  </div>
-</section>
-
-<section>
-  <div class="kicker">How to use this</div>
-  <h2>Two documents in one.</h2>
-  <p>Part I is written so you can hand it to Touro for credit. It states the role, the schedule, who supervises you, and the benchmarks we will actually use.</p>
-  <p>Part II is yours. Read it before October 6. After that, keep it open. The glossary is for downtime. The studio films and the trades are the other half of the job, on the days you are not in the office.</p>
-  <p>Your channel is Slack. That is how we talk to you, assign work, and take your notes. You will not have your own login for email, CoStar, LoopNet, Salesforce, or GrowthFactor. You learn those by sitting next to the person who has the license.</p>
-  <hr class="rule">
-  <p>The case studies live in the brand book. Read it with this, not instead of it.</p>
-  <p><a href="https://masonre.com/wp-content/uploads/2026/09/masonre-Brand-Book.pdf">masonre.com/wp-content/uploads/2026/09/masonre-Brand-Book.pdf</a></p>
-  <p class="small muted">Landlord experience first, then tenant experience. Capital markets is the short section after those two. Your sit-down with Elie is how that section becomes real.</p>
-</section>
-
-<section>
-  <div class="kicker">Part I · For Touro</div>
-  <h2>Internship description</h2>
-  <p class="small muted">Host: masonre, New York. Intern: Naomi Plotkin. Prepared so she can submit it for academic credit.</p>
-
-  <h3>Position overview</h3>
-  <p>The intern will train inside a retail real estate brokerage and advisory firm. masonre represents landlords and brands in New York, Miami, and Los Angeles. The work is one lifecycle: understand a building, decide who belongs in it, find that brand, and communicate the opportunity.</p>
-  <p>Naomi is a Management student at Touro in New York, with a focus in Marketing. The internship is built around that focus. She will learn how the firm tells a building’s story, how a market is read on foot and in data, and how a brand is found and approached. The aim is a working knowledge of the business, and a clear view of whether this is the career she wants.</p>
-  <p>She is based in New York for the full term. She works from the New York office and in the field. Florida is a market she will study, and a place she may sit with the team when she is in Hollywood. It is not a second training site.</p>
-
-  <h3>Schedule</h3>
-  <p>October 6, 2026 through May 2027. Generally two to three days a week, in the office and on the street as the work requires. Days are set with Jeff Jacobson around live assignments, tours, and meetings. Reading, the glossary, studio films, and the trades fill the remaining time.</p>
-
-  <h3>Supervision</h3>
-  <p>David Abrams, Founder &amp; CEO, is the supervisor for the full term. David directs the plan, reviews the benchmarks, and holds the conversation in May about what she has learned and whether she wants to continue in the field. He also meets with her regularly on Zoom.</p>
-  <p>Jeff Jacobson, Director, is her day-to-day lead in the New York office. She also trains with Vanessa Chiulli (brand, marketing, and the leasing brochure), Brandon Miller (the retailer), Shane Walsh (film), Elie Mansdorf (capital markets), and Eliot Goldschmidt (CoStar, when she is in Hollywood). Rachael Brook, based in South Beach, joins the October 13–14 onboarding in New York.</p>
-  <p class="small">Supervisor contact: David Abrams, david@masonre.com, 212.222.1496. On-site lead: Jeff Jacobson, jeff@masonre.com.</p>
-
-  <h3>Responsibilities</h3>
-  <ul>
-    <li>Learn the firm’s vocabulary and use it correctly in conversation and in writing.</li>
-    <li>Read the brand book and be able to explain a landlord assignment and a tenant assignment in plain language.</li>
-    <li>Walk retail corridors with the team and record what is open, what just leased, and who the neighbors are.</li>
-    <li>Sit with the team on GrowthFactor, CoStar, and LoopNet. CoStar is how brokers see the market. LoopNet is how tenants see a listing.</li>
-    <li>Learn how a leasing brochure is built: the story, the photographs, the plan, and the tenant the building is for.</li>
-    <li>Help look for brands that fit a specific building or a specific rollout.</li>
-    <li>Outline an email drip. She does not send client email.</li>
-    <li>Write and then perform a short film about the internship. She is on camera. Shane Walsh produces. The team shoots.</li>
-    <li>Read the trades each week and brief one trend: what happened, and why it matters to a landlord or a brand.</li>
-    <li>Sit with capital markets to see how a building is chosen and bought, not only how it is leased.</li>
-  </ul>
-
-  <h3>Skills and experience gained</h3>
-  <ul>
-    <li>Retail real estate vocabulary and the difference between landlord strategy and tenant strategy.</li>
-    <li>How a market is canvassed on foot, then checked in GrowthFactor, CoStar, and LoopNet.</li>
-    <li>How a professional leasing story is written and designed.</li>
-    <li>How a brand is researched and how outreach is sequenced.</li>
-    <li>How to read trade press for trend, not for gossip, across real estate, fashion, and food.</li>
-    <li>How to write a 45–60 second script and deliver it on camera.</li>
-    <li>A supervised view of capital markets: what makes a retail-driven building worth buying.</li>
-    <li>A direct answer, by May 2027, on whether this work is the career she wants.</li>
-  </ul>
-</section>
-
-<section class="page" style="break-before: page; page-break-before: always;">
-  <div class="kicker">Part I · Benchmarks</div>
-  <h2>What success is.</h2>
-  <p>If the term goes to plan, by May 2027 Naomi can do four things without a script in her lap. She can explain who masonre is and what it does. She can explain her role in that work. She can walk a block and say what is missing. She can say whether she wants this career.</p>
-  <p>Progress is reviewed against the table below. David Abrams reviews it with her at the end of October, at the end of February, and in May. Jeff Jacobson sees the weekly work in Slack as it happens.</p>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Track</th>
-        <th>End of October 2026</th>
-        <th>End of February 2027</th>
-        <th>May 2027</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="track">The firm</td>
-        <td>Has read this book and the brand book. Can say who masonre is in a few sentences.</td>
-        <td>Can tell a landlord story and a tenant story from the brand book without reading them off the page.</td>
-        <td>Can give the one-minute version on camera: who we are, what we do, and what the intern does.</td>
-      </tr>
-      <tr>
-        <td class="track">Vocabulary</td>
-        <td>Uses the glossary in downtime. Can define the core deal and rent terms correctly.</td>
-        <td>Uses the terms in her own notes and in conversation with Jeff.</td>
-        <td>A teammate can hand her a paragraph from a brochure or a trade story and she knows every word that matters.</td>
-      </tr>
-      <tr>
-        <td class="track">Landlord strategy</td>
-        <td>Has started walking with Jeff. Can describe what “merchandising a building” means.</td>
-        <td>Can write, for one building she has walked, who the landlord is trying to attract and why.</td>
-        <td>Can stand on a block and connect what she sees to a strategy, not only to a vacant storefront.</td>
-      </tr>
-      <tr>
-        <td class="track">Brands</td>
-        <td>Knows the difference between representing the building and representing the brand.</td>
-        <td>Has sat with Brandon on how a retailer chooses a street. Has a practice list of brands for one real corridor.</td>
-        <td>Can explain why a brand fits a building, using the customer, the neighbors, and the rent, not a logo.</td>
-      </tr>
-      <tr>
-        <td class="track">The brochure</td>
-        <td>Has seen a finished masonre brochure and can name its parts.</td>
-        <td>Has sat with Vanessa through the making of one. Can say what the brochure is arguing.</td>
-        <td>Can brief a page: the story, the plan, and who it is for.</td>
-      </tr>
-      <tr>
-        <td class="track">Mapping</td>
-        <td>Can canvass a block on foot: open, leased, dark, neighbor.</td>
-        <td>Has sat in on GrowthFactor, CoStar, and LoopNet. Knows which audience each one speaks to.</td>
-        <td>Can combine a walk with what the screens show, and say where they disagree.</td>
-      </tr>
-      <tr>
-        <td class="track">Outreach</td>
-        <td>Understands that a drip is a sequence with one ask.</td>
-        <td>Has outlined one drip in Slack. She has not sent it.</td>
-        <td>Can defend the order of that sequence: why this person, why this proof, why this ask.</td>
-      </tr>
-      <tr>
-        <td class="track">On camera</td>
-        <td>Delivers a 45–60 second script: who we are, what we do, what her role is.</td>
-        <td>The script has been revised with Shane and Jeff. A shoot is scheduled.</td>
-        <td>The first film in “Life as an intern” is finished. She is the person on camera.</td>
-      </tr>
-      <tr>
-        <td class="track">Trends</td>
-        <td>Knows the reading list. Has sent her first weekly note.</td>
-        <td>A weekly Slack note to Jeff: one story, why it matters, what masonre would do with it.</td>
-        <td>Can brief a trend out loud and tie it to a landlord or a brand we would actually call.</td>
-      </tr>
-      <tr>
-        <td class="track">Capital markets</td>
-        <td>Has read the capital markets pages in the brand book.</td>
-        <td>Has sat with Elie on how masonre looks at a building to buy.</td>
-        <td>Can explain how leasing strategy and an acquisition thesis use the same streets.</td>
-      </tr>
-    </tbody>
-  </table>
-  <p class="small muted">The October benchmark that cannot slip: the script. Everything else in the first month supports it. She should not be on camera until the words are right.</p>
-</section>
-
-<section class="page">
-  <div class="kicker">Part II · The book</div>
-  <h2>Who we are.</h2>
-  <p>masonre is a brokerage and advisory firm. We work in New York, Miami, and Los Angeles. We lead the growth of trophy retail: the buildings, and the brands that make those buildings matter.</p>
-  <p>The name is masonry. Brick, mortar, craft, a foundation that holds. The standard we use on ourselves is the same one we will use on you: quality over quantity. Fewer things, done properly. Partnership ahead of the transaction. Hustle, and very little ego.</p>
-  <p>We do two jobs that look different and are the same skill.</p>
-  <p><strong>For a landlord,</strong> we decide who the building is for, merchandise the space, tell that story, and lease it. Sometimes we are in the work before the landlord buys. Sometimes the retail has been dark for years and the job is to change what the street thinks the building is.</p>
-  <p><strong>For a brand,</strong> we learn the customer, pick the streets, and negotiate the stores. A good assignment is a rollout, not a single lucky corner.</p>
-  <p>Read those two ideas in the brand book until you can say them with examples. Start here:</p>
-  <ul>
-    <li><strong>1140 Third Avenue, Upper East Side.</strong> We broke a large retail floor into smaller spaces, put a fitness studio in the lower level off a new 67th Street entrance, and leased Alo, Credo, Bondi Sushi, Madison Reed, Solidcore, and Aesop. Solidcore’s number one store in the chain.</li>
-    <li><strong>75 Kenmare, Nolita.</strong> New retail under a residential building. We merchandised it, leased it, and the retail condo sold.</li>
-    <li><strong>101 William, Financial District.</strong> Retail vacant for nearly a decade. The plan was one best-in-class gym for the offices above and the neighborhood. Club Studio, 36,000 square feet, their first New York gym.</li>
-    <li><strong>Oaklyn, Oakland Park.</strong> The brochure was written before the shovel. It had to show a campus, not a list of square feet. Pure Barre, Bondi, Pause, and a set of local and national operators followed.</li>
-    <li><strong>Alo.</strong> A lease on the Upper East Side when the brand had eight stores. Then a South Florida rollout, and the purchase of 100 Lincoln Road for a flagship, an office, and a private gym.</li>
-    <li><strong>Boggi, Peserico, Bondi, SunLife, Reforming Pilates.</strong> Tenant work. Different customers, same muscle: where they should be, and in what order.</li>
-  </ul>
-  <p>You are allowed to know these. They are the firm’s public record. If you retell one, retell it accurately, and do not add numbers you did not read.</p>
-</section>
-
-<section>
-  <div class="kicker">Part II</div>
-  <h2>Your role.</h2>
-  <p>You are here to learn the business, the way we see a market, who our clients are, and how a client gets found. At the end you should know whether you want this work. That answer is a real outcome of the internship, not a mood we check on the last day.</p>
-  <p>You will not have a book of business, a license, or a login. You will have Jeff most days you are in, a different teammate when the subject changes, and Slack. You observe, you walk, you write, you ask. You do not speak for masonre, and you do not write to a landlord, a brand, or another broker as if you do.</p>
-  <p>The first month has one piece of finished work: a script, 45 to 60 seconds, in your voice. It has to carry three ideas. Who masonre is. What we do. What you are here to do. Shane will produce the film. Jeff wants to shoot, and other people on the team will get behind a camera. You are the person in the frame. The series is called Life as an intern. The script comes first.</p>
-  <h3>Before October 6</h3>
-  <ul>
-    <li>Read Part II of this book once, all the way through.</li>
-    <li>Read the brand book. Landlord, then tenant, then capital markets.</li>
-    <li>Start the glossary. You will not memorize it in a weekend. You will reread it.</li>
-    <li>Start the studio films. David will send the watch list as links.</li>
-    <li>When Slack is open, say you are in.</li>
-  </ul>
-  <h3>October 13 and 14</h3>
-  <p>Onboarding is in person at the New York office. Rachael Brook will be in from South Beach. Jeff will be there. Brandon and Elie will join if they are in the city. The point of those two days is that you meet the people in the same room, hear the plan from more than one voice, and leave knowing who to go to for what.</p>
-  <p>Rachael Brook is new to the team and based in South Beach. She will be in New York on and off. October 13–14 is the introduction. Dates can move if her travel moves. Jeff will tell you in Slack if they do.</p>
-  <p>Between those days in the office, David meets with you on Zoom on a regular cadence. That is part of the supervision, not a substitute for the time with Jeff.</p>
-</section>
-
-<section>
-  <div class="kicker">Part II · The team</div>
-  <h2>Learn from all of them.</h2>
-  <p>Everyone here has a lane. Your job in the first months is to spend real time in each lane, not to pick a favorite in week one.</p>
-  <div class="person"><strong>David Abrams, Founder &amp; CEO.</strong> Your supervisor. He sets the standard and reviews the benchmarks. You meet with him regularly on Zoom. The May conversation about whether this is your work is with him.</div>
-  <div class="person"><strong>Jeff Jacobson, Director.</strong> Your day-to-day in New York. He is in the office the most. He came up as a residential broker, he knows the city as a place people live, and he is the person to learn food from: what a restaurant needs from a space, and why a block works at night as well as at noon. Walk with him.</div>
-  <div class="person"><strong>Vanessa Chiulli, Chief Marketing Officer.</strong> Brand, marketing, and design. She is how a leasing brochure actually gets made. Sit with her before you have an opinion about one.</div>
-  <div class="person"><strong>Brandon Miller, Director.</strong> He came from the retailer side. Ask him how a brand decides, what a store has to do for the customer, and why a corner that looks good on a map fails the operator.</div>
-  <div class="person"><strong>Shane Walsh, Producer.</strong> He produces Life as an intern. You write and you perform. He builds the film. Jeff and others shoot. Nothing is filmed off a draft you are still unhappy with.</div>
-  <div class="person"><strong>Elie Mansdorf, Capital Markets.</strong> He shows you the other half of the lifecycle: how we look at a building to buy, not only to lease. This sits beside the eight steps below. Do not skip it.</div>
-  <div class="person"><strong>Eliot Goldschmidt, Director.</strong> When you are in Hollywood, you sit with Eliot. He teaches you CoStar. The Florida buildings in the brand book — Design District, Oaklyn, Wynwood, Lincoln Road — are the ones to have read before you do.</div>
-  <div class="person"><strong>Rachael Brook.</strong> Based in South Beach, in New York October 13–14 for your onboarding, and in the city at other points during the term. Meet her then. You will see how someone new learns the same firm from the Florida side.</div>
-  <div class="person"><strong>Dena Abrams, Chief Philanthropy Officer.</strong> When the schedule allows, hear how she thinks about the neighborhood around a deal. It is part of the firm, and it is part of a full introduction.</div>
-</section>
-
-<section>
-  <div class="kicker">Part II · The path</div>
-  <h2>Eight steps, in order.</h2>
-  <p>You will touch all eight during the year. The order is the order you should learn them. October is step 1, the brand book, and the script. Do not jump to filming, and do not jump to outreach, before you can say what the firm does.</p>
-
-  <ol class="steps">
-    <li>
-      <div class="step-num">01</div>
-      <h3>Real estate vocabulary</h3>
-      <p>The glossary at the back is the list. Read it on the subway, between classes, whenever you would otherwise scroll. In October, mark every term you cannot explain out loud. Ask Jeff the ones that still feel slippery after you have tried. By February the words should show up in your Slack notes without you reaching for this book.</p>
-    </li>
-    <li>
-      <div class="step-num">02</div>
-      <h3>Landlord strategy</h3>
-      <p>A landlord assignment starts before a lease draft. Someone has to decide who the building is for. At 1140 Third that meant smaller stores and a fitness use downstairs. At 101 William it meant one gym strong enough to wake up a retail box that had sat empty. At Oaklyn the brochure had to describe a campus before the building existed.</p>
-      <p>With Jeff, pick one building from the brand book and one block you can actually walk. Write half a page: who lives or works here, what is already on the street, what is missing, and what you would refuse even if they could pay the rent. That is strategy. Square footage is not.</p>
-    </li>
-    <li>
-      <div class="step-num">03</div>
-      <h3>Discovering brands</h3>
-      <p>Agency work runs on a list of the right names, kept current. Some of those names are for a building we represent. Some are brands we represent, looking for their next street.</p>
-      <p>Brandon is the person who will ruin a lazy list. A logo you like is not a reason. He will make you say who the customer is, what they already buy on that block, and whether the operator can survive the rent. Your practice work is a short list for one corridor you have walked. It stays inside the firm until someone else decides it is ready to use.</p>
-    </li>
-    <li>
-      <div class="step-num">04</div>
-      <h3>How we communicate — the leasing brochure</h3>
-      <p>The brochure is the argument for the building. It is not a flyer with a floor plan dropped on it. Vanessa will show you how a page earns its place: the line of the neighborhood, the photographs, the plan, the tenant we want, and the thing we are willing to leave out.</p>
-      <p>Your job is to learn the sequence. Story, then proof, then the ask. When you can describe a brochure that way, you are ready to talk about outreach. Not before.</p>
-    </li>
-    <li>
-      <div class="step-num">05</div>
-      <h3>Mapping — walking, GrowthFactor, and CoStar</h3>
-      <p>We canvass. That means feet first. Walk the avenue and the side streets. Note what is open, what is papered, what went dark, who the neighbors are, and what the ground floor is actually doing at 11 a.m. and at 7 p.m. Food is a different business after dark. Jeff will make you see that.</p>
-      <p>Then the screens, over someone’s shoulder. GrowthFactor tells you who visits, where they come from, and what else they go to. CoStar is the broker record: availabilities, comps, ownership, the listing other brokers see. LoopNet is the tenant-facing board. When we post an exclusive, CoStar speaks to brokers and LoopNet speaks to tenants. Same space, two audiences. You do not get a seat of your own. You learn the questions to ask while a teammate drives.</p>
-      <p>In Hollywood, that CoStar session is with Eliot. Come having already read the Florida projects in the brand book.</p>
-    </li>
-    <li>
-      <div class="step-num">06</div>
-      <h3>Email drip campaigns</h3>
-      <p>A drip is a short sequence to one kind of reader, with one reason for writing and one thing we want them to do. It is not a newsletter, and it is not a blast.</p>
-      <p>You will outline one. Who it is for. The three notes, in order. What proof sits in each note. What the ask is on the last note. You will put that outline in Slack. You will not send it. You do not have an email seat, and a draft is not a campaign until the person who owns the relationship says it is.</p>
-    </li>
-    <li>
-      <div class="step-num">07</div>
-      <h3>Life as an intern</h3>
-      <p>You are the subject. Shane produces. Jeff wants more of the team filming, so treat the shoot as a team job, not a favor from one person.</p>
-      <p>October deliverable, due by October 31: the script, 45 to 60 seconds when read aloud at a normal pace. Time it. Structure it like this.</p>
-      <ul>
-        <li>One or two sentences: who masonre is.</li>
-        <li>One or two sentences: what we do for a landlord and for a brand. Use a real example from the brand book if it helps, and keep it accurate.</li>
-        <li>One or two sentences: what you are here to learn between now and May, and what you will have done if the internship works.</li>
-      </ul>
-      <p>Read it to Jeff before you call it done. Shane will tell you what a camera cannot carry. We shoot after the words are settled, not as a way to find the words.</p>
-    </li>
-    <li>
-      <div class="step-num">08</div>
-      <h3>Reading, so you learn the trends</h3>
-      <p>Once a week, on a day you are working, pick one story and send Jeff five lines in Slack. What happened. Who it affects. Whether it matters to a landlord, a brand, or both. What masonre would do with it, even if the answer is nothing.</p>
-      <p>Read these:</p>
-      <ul>
-        <li>The Real Deal, Commercial Observer, and Bisnow, for the deals and the markets.</li>
-        <li>Crain’s New York, for the city around the deals.</li>
-        <li>WWD and The Business of Fashion, for the brands that become tenants.</li>
-        <li>Eater NY and Grub Street, for restaurants, which are a leasing specialty of their own.</li>
-      </ul>
-      <p>If a better food or fashion source earns a place on the list, Jeff will add it. The habit matters more than the logo on the site.</p>
-    </li>
-  </ol>
-
-  <h3>Beside the eight: capital markets, with Elie</h3>
-  <p>Leasing fills a building. Capital markets asks whether the building should be owned, and by whom. Elie will walk you through how masonre looks at a retail-driven asset: the street, the tenant mix, the rent, and whether the basis makes sense. You are not building a model. You are learning to see that a lease comp and a purchase thesis are the same block of sidewalk, read for two decisions.</p>
-  <p>Have the capital markets pages of the brand book read before you sit with him. One session is the February benchmark. More than one is better if his calendar allows.</p>
-</section>
-
-<section class="page">
-  <div class="kicker">Part II · October</div>
-  <h2>The first month, on one page.</h2>
-  <ul>
-    <li>October 6. You start. Slack is live. You know who Jeff is and how to reach him.</li>
-    <li>October 13–14. Onboarding at the New York office with Jeff and Rachael Brook. Brandon and Elie if they are around.</li>
-    <li>Walk at least once with Jeff before the month ends.</li>
-    <li>Brand book: landlord section and tenant section, finished.</li>
-    <li>Studio films started. David sends the link list.</li>
-    <li>Glossary started, with the terms you miss marked.</li>
-    <li>First trend note in Slack.</li>
-    <li>October 31. The 45–60 second script, timed, and read to Jeff.</li>
-  </ul>
-  <p>David reviews October against the first column of the benchmark table. If the script is thin, we fix the script before we add work.</p>
-
-  <h3>From November to May</h3>
-  <p><strong>November.</strong> Landlord strategy with Jeff, on a building you can walk. First session with Vanessa on a brochure.</p>
-  <p><strong>December.</strong> Brandon, and a practice brand list for one corridor. Still inside the firm.</p>
-  <p><strong>January.</strong> Mapping. Walking notes, then GrowthFactor, CoStar, and LoopNet over a shoulder. If you are in Hollywood, that CoStar teaching is with Eliot.</p>
-  <p><strong>February.</strong> One drip, outlined in Slack, not sent. A session with Elie. End-of-February review with David.</p>
-  <p><strong>March.</strong> You can brief a trend out loud. The script is in revision with Shane.</p>
-  <p><strong>April and May.</strong> Shoot Life as an intern. Finish the first film. The May review is the benchmarks in the last column, plus your own answer: do you want this work.</p>
-  <p class="small muted">The months can slide if a live assignment is the better teacher that week. The benchmarks do not slide. Jeff will say so in Slack when the week changes.</p>
-</section>
-
-<section>
-  <div class="kicker">Part II · Glossary</div>
-  <h2>Words to keep rereading.</h2>
-  <p class="small muted">Retail brokerage, the way we talk. If a definition fights what Jeff tells you on a live deal, the live deal wins, and you update your notes.</p>
-
-  <h3>The people</h3>
-  <div class="two">
-    <div class="term"><strong>Landlord.</strong> The owner. We merchandise and lease their retail.</div>
-    <div class="term"><strong>Tenant.</strong> The brand or operator who will occupy the space.</div>
-    <div class="term"><strong>Exclusive.</strong> One firm is hired to represent the space or the assignment. We then have something to post and to stand behind.</div>
-    <div class="term"><strong>Co-broker.</strong> Another broker in the deal. Know which side they are on before you repeat anything they say.</div>
-    <div class="term"><strong>Credit.</strong> Shorthand for a tenant a landlord believes can pay. A famous name and a strong credit are not always the same thing.</div>
-  </div>
-
-  <h3>The space</h3>
-  <div class="two">
-    <div class="term"><strong>Frontage.</strong> The width on the street. In retail, width is often worth more than depth.</div>
-    <div class="term"><strong>Inline.</strong> A store in the run of the block, not a corner and not a pad sitting alone.</div>
-    <div class="term"><strong>Corner.</strong> Two frontages. Usually the space everyone asks for, and prices that way.</div>
-    <div class="term"><strong>Flagship.</strong> The store that has to represent the brand, not just ring the register.</div>
-    <div class="term"><strong>Second generation.</strong> A space another tenant already built. Kitchens, floors, and HVAC may be the opportunity.</div>
-    <div class="term"><strong>White box / vanilla shell.</strong> Empty, finished enough to start from, without the last tenant’s business built in.</div>
-    <div class="term"><strong>Dark.</strong> Closed. A dark store can still be under lease. Ask.</div>
-    <div class="term"><strong>Divisible / demise.</strong> Cutting one space into more than one. 1140 Third is the example in our book.</div>
-    <div class="term"><strong>Lower level.</strong> Basement or concourse. It leases when it has its own reason to exist, often its own entrance.</div>
-    <div class="term"><strong>Retail condo.</strong> The retail owned separately from the apartments or the office above it. It can be leased, and it can be sold.</div>
-  </div>
-
-  <h3>The rent</h3>
-  <div class="two">
-    <div class="term"><strong>PSF.</strong> Per square foot, almost always per year in the way we quote rent.</div>
-    <div class="term"><strong>Asking vs. taking.</strong> What the landlord publishes, and what actually gets signed. Believe comps of signed deals first.</div>
-    <div class="term"><strong>NNN / triple net.</strong> Tenant pays rent plus taxes, insurance, and common-area costs. Know what “net” is net of.</div>
-    <div class="term"><strong>Modified gross.</strong> A middle form. Some expenses sit with the landlord, some with the tenant. Read which ones.</div>
-    <div class="term"><strong>CAM.</strong> Common area maintenance. The shared-cost bill. It changes the real rent.</div>
-    <div class="term"><strong>TI.</strong> Tenant improvement allowance. Landlord money toward the buildout. It is part of the deal, not a gift beside it.</div>
-    <div class="term"><strong>Free rent.</strong> Months of occupancy before rent starts. It is a concession with a cost.</div>
-    <div class="term"><strong>Escalation.</strong> How the rent grows. A percentage a year, or bumps on a schedule.</div>
-    <div class="term"><strong>Percentage rent.</strong> Extra rent as a share of sales, usually after a breakpoint. Common in retail, easy to misunderstand.</div>
-    <div class="term"><strong>Term.</strong> How long the lease runs.</div>
-    <div class="term"><strong>Possession.</strong> When the tenant can take the space.</div>
-    <div class="term"><strong>Rent commencement.</strong> When rent starts. It is often not the possession date.</div>
-  </div>
-</section>
-
-<section class="page">
-  <div class="kicker">Glossary, continued</div>
-  <h3>The deal</h3>
-  <div class="two">
-    <div class="term"><strong>Canvass.</strong> Walking the market and calling on it. The job before the screen.</div>
-    <div class="term"><strong>Availability.</strong> A space that can be leased. Confirm it. Listings go stale.</div>
-    <div class="term"><strong>Comp.</strong> A comparable lease or sale. A comp without the concessions is half a fact.</div>
-    <div class="term"><strong>LOI.</strong> Letter of intent. The business terms, before the lease is drafted.</div>
-    <div class="term"><strong>Lease out.</strong> The deal is far enough that lawyers are papering it. Not the same as signed.</div>
-    <div class="term"><strong>Use clause.</strong> What the tenant is allowed to operate. A bakery and a restaurant are not the same use.</div>
-    <div class="term"><strong>Radius.</strong> A restriction on the tenant opening another store too close.</div>
-    <div class="term"><strong>Exclusive use.</strong> Protection against a competing use in the same building.</div>
-    <div class="term"><strong>Assignment.</strong> The tenant transfers the lease. Landlords guard this.</div>
-    <div class="term"><strong>Good guy.</strong> A New York guaranty. The guarantor can get off the hook if the tenant pays through a noticed vacancy and gives the space back. Ask Jeff to show you one in a real lease.</div>
-    <div class="term"><strong>Pro forma.</strong> The projection of rent, cost, and outcome. On a landlord job we often build one before the owner closes.</div>
-    <div class="term"><strong>Merchandising.</strong> Deciding the mix: which uses, which sizes, which names, in which order.</div>
-    <div class="term"><strong>Co-tenancy.</strong> Who sits next to whom. Fashion next to fashion is a strategy. So is a gym under apartments.</div>
-  </div>
-
-  <h3>Food, because Jeff will ask</h3>
-  <div class="two">
-    <div class="term"><strong>Venting.</strong> How cooking air leaves the building. No vent, no restaurant, unless the use does not need one.</div>
-    <div class="term"><strong>Type 1 / Type 2.</strong> Type 1 handles grease from real cooking. Type 2 handles heat and steam. The menu decides which one.</div>
-    <div class="term"><strong>Grease trap.</strong> The plumbing a cooking use often has to have. It is a deal issue, not a detail for later.</div>
-    <div class="term"><strong>Second-generation restaurant.</strong> Someone already spent the money on the kitchen. Noda, in our book, is the lesson.</div>
-  </div>
-
-  <h3>The market and the tools</h3>
-  <div class="two">
-    <div class="term"><strong>Trade area.</strong> Where the customers actually come from. Not the same as the neighborhood’s nickname.</div>
-    <div class="term"><strong>Corridor.</strong> The stretch of street that trades as one place. Madison, Lincoln Road, the Design District.</div>
-    <div class="term"><strong>Daytime vs. residential.</strong> Office workers and people who sleep there are different customers. A block can have one and not the other.</div>
-    <div class="term"><strong>CoStar.</strong> The system brokers use. Availabilities, comps, ownership. When we post an exclusive, this is the broker audience.</div>
-    <div class="term"><strong>LoopNet.</strong> Where tenants and the public see listings. Same exclusive, different reader.</div>
-    <div class="term"><strong>GrowthFactor.</strong> Visit data. Who comes, from where, and what else they frequent. We use it to test a story the walk suggested.</div>
-    <div class="term"><strong>Drip.</strong> A short, ordered series of notes to one kind of reader, with one ask.</div>
-    <div class="term"><strong>Cap rate.</strong> A price expressed as yield. You will hear it with Elie. You do not need to compute one this year. You need to know it is how buyers talk.</div>
-    <div class="term"><strong>Basis.</strong> What an owner has in the deal. It drives what rent they can accept, and whether they will sell.</div>
-    <div class="term"><strong>OM.</strong> Offering memorandum. The book for a building that is for sale. Cousin of the leasing brochure, different decision.</div>
-  </div>
-</section>
-
-<section>
-  <div class="kicker">Part II · Watch and read</div>
-  <h2>Studio, then the trades.</h2>
-  <p>masonre studio is our own record of buildings, openings, and conversations. The point of the series, in the firm’s words, is tips for landlords, tenants, and their brokers, and a next generation that knows how the work is actually done. Watch it before you try to be in a film.</p>
-  <p>David will send the assigned films as links. That list is the assignment. Until it arrives in Slack, start at <a href="https://masonre.com/studio/">masonre.com/studio</a>.</p>
-  <p>While you watch, write down one decision the film is showing. A tenant choice, a street, a way of talking about the building. That note is more useful than a recap of the footage.</p>
-  <hr class="thin">
-  <p>The weekly reading list, again, so it sits next to the films:</p>
-  <ul>
-    <li>The Real Deal</li>
-    <li>Commercial Observer</li>
-    <li>Bisnow</li>
-    <li>Crain’s New York</li>
-    <li>WWD</li>
-    <li>The Business of Fashion</li>
-    <li>Eater NY</li>
-    <li>Grub Street</li>
-  </ul>
-  <p>One story. Five lines. To Jeff, in Slack. Every week you are working.</p>
-  <hr class="rule">
-  <p class="serif" style="font-size: 14pt; line-height: 1.35; margin-top: 8px;">By May you should be able to say it in a minute, on your feet. Who we are. What we do. What you did here. And whether you want to keep doing it.</p>
-  <p class="small muted" style="margin-top: 18px;">masonre · New York · Naomi Plotkin · October 6, 2026 – May 2027</p>
-</section>
-
+<form class="gate" id="gate">
+  <span class="eyebrow">Private · Internship</span>
+  <h1>Naomi Plotkin</h1>
+  <p class="hint">Enter the password to open the internship book.</p>
+  <input type="password" id="pw" placeholder="Password" autocomplete="current-password" autofocus>
+  <button type="submit" id="go">Open</button>
+  <div class="err" id="err"></div>
+  <div class="wordmark">masonre</div>
+</form>
+<script>
+const SALT="/Kj4HUqKliRSRyyTcoKMLw==", IV="1h4kvl2gBbsL4NkB4oarmQ==", DATA="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", TAG="YpJL4aRD9uju5ynVnKd0tA37HkD/rXJNv4J59y6fe4I=", ITER=310000;
+const fromB64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+async function decrypt(pw){
+  const salt = fromB64(SALT), iv = fromB64(IV), data = fromB64(DATA), tag = fromB64(TAG);
+  const baseKey = await crypto.subtle.importKey("raw", new TextEncoder().encode(pw), "PBKDF2", false, ["deriveBits"]);
+  const bits = new Uint8Array(await crypto.subtle.deriveBits(
+    {name:"PBKDF2", salt, iterations:ITER, hash:"SHA-256"}, baseKey, 512));
+  const macKey = await crypto.subtle.importKey("raw", bits.slice(32), {name:"HMAC", hash:"SHA-256"}, false, ["verify"]);
+  const signed = new Uint8Array(iv.length + data.length);
+  signed.set(iv); signed.set(data, iv.length);
+  if(!await crypto.subtle.verify("HMAC", macKey, tag, signed)) throw new Error("bad password");
+  const aesKey = await crypto.subtle.importKey("raw", bits.slice(0, 32), "AES-CBC", false, ["decrypt"]);
+  const plain = await crypto.subtle.decrypt({name:"AES-CBC", iv}, aesKey, data);
+  return new TextDecoder().decode(plain);
+}
+async function attempt(pw, silent){
+  const btn = document.getElementById("go"), err = document.getElementById("err");
+  btn.disabled = true; err.textContent = "";
+  try{
+    const html = await decrypt(pw);
+    try{ sessionStorage.setItem("pw", pw); }catch(e){}
+    document.open(); document.write(html); document.close();
+  }catch(e){
+    btn.disabled = false;
+    if(!silent) err.textContent = "That's not it — try again.";
+  }
+}
+document.getElementById("gate").addEventListener("submit", e => {
+  e.preventDefault();
+  attempt(document.getElementById("pw").value, false);
+});
+try{
+  const saved = sessionStorage.getItem("pw");
+  if(saved) attempt(saved, true);
+}catch(e){}
+</script>
 </body>
 </html>
