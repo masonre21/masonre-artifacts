@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>masonre — Internship, Naomi Plotkin</title>
 <style>
   @page {
@@ -14,12 +15,12 @@
     padding: 0;
     background: #f4f0e8;
     color: #1c1a17;
-    font-family: Inter, "Liberation Sans", sans-serif;
+    font-family: Inter, "Avenir Next", "Segoe UI", Helvetica, Arial, sans-serif;
     font-size: 10.5pt;
     line-height: 1.45;
   }
   body { padding: 0; }
-  h1, h2, h3, .serif { font-family: "Liberation Serif", "Noto Serif", serif; font-weight: 400; }
+  h1, h2, h3, .serif { font-family: "Liberation Serif", Georgia, "Times New Roman", serif; font-weight: 400; }
   h1 { font-size: 42pt; line-height: 0.95; margin: 0 0 12px; letter-spacing: -0.02em; }
   h2 {
     font-size: 22pt;
@@ -121,6 +122,32 @@
   .person strong { font-weight: 600; }
   ol.steps { margin: 0; padding: 0; list-style: none; }
   ol.steps > li { margin: 0 0 12px; break-inside: avoid; page-break-inside: avoid; }
+  @media screen {
+    body { padding: 32px 18px 72px; }
+    body > section {
+      max-width: 760px;
+      margin: 0 auto 28px;
+      background: #fffdf9;
+      padding: 36px 40px 32px;
+    }
+    .cover { min-height: 0; display: block; }
+    .cover-top { margin-top: 0; }
+    .page { break-after: auto; page-break-after: auto; }
+    a { text-decoration: underline; text-underline-offset: 2px; }
+    h1 { font-size: 46px; }
+    .cover h1 { font-size: 56px; }
+    h2 { font-size: 32px; }
+    p, li, .person, .term { font-size: 16.5px; line-height: 1.5; }
+    table { font-size: 13.5px; }
+  }
+  @media screen and (max-width: 720px) {
+    body { padding: 0 0 48px; }
+    body > section { padding: 28px 18px 24px; margin-bottom: 12px; }
+    .cover h1 { font-size: 42px; }
+    h2 { font-size: 28px; }
+    .two { grid-template-columns: 1fr; }
+    table { display: block; overflow-x: auto; }
+  }
 </style>
 </head>
 <body>
@@ -128,7 +155,6 @@
 <section class="page cover">
   <div class="cover-top">
     <div class="wordmark">masonre</div>
-    <div class="draft">Draft</div>
     <div class="kicker">New York internship</div>
     <h1>Read this first.</h1>
     <p class="who serif">Naomi Plotkin</p>
@@ -543,7 +569,7 @@
   <p>One story. Five lines. To Jeff, in Slack. Every week you are working.</p>
   <hr class="rule">
   <p class="serif" style="font-size: 14pt; line-height: 1.35; margin-top: 8px;">By May you should be able to say it in a minute, on your feet. Who we are. What we do. What you did here. And whether you want to keep doing it.</p>
-  <p class="small muted" style="margin-top: 18px;">masonre · New York · Draft for Naomi Plotkin · October 6, 2026 – May 2027</p>
+  <p class="small muted" style="margin-top: 18px;">masonre · New York · Naomi Plotkin · October 6, 2026 – May 2027</p>
 </section>
 
 </body>
